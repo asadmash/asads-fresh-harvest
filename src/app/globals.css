@@ -6,7 +6,8 @@
     Color Palette
   */
 
-  --color-green: #749b3f;
+  --color-greenl: #749b3f;
+  --color-green: #176d38;
   --color-primary: #ff6a19;
   --color-black: #212337;
 
@@ -16,10 +17,12 @@
   --color-gray-20: #f4f6f6;
   --color-text-lime: #749b3f;
 
-  /* --breakpoint-xs: 480px;
+  --breakpoint-xs: 480px;
+  --breakpoint-xsm: 500px;
+
   --breakpoint-sm: 640px;
   --breakpoint-md: 768px;
-  --breakpoint-lg: 1024px; */
+  --breakpoint-lg: 1024px;
 
   /* 
     Background & Foreground
@@ -45,14 +48,69 @@ h2,
 h3,
 h4,
 h5,
-h6, button {
+h6,
+button {
   font-family: var(--font-heading), sans-serif;
   font-weight: 500;
 }
 
 @layer components {
-  .container_inner {
-    @apply px-10 @sm:px-8 @md:px-10 @lg:px-30;
+  @layer components {
+    .container_inner {
+      width: 100%;
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: 1.25rem; 
+      padding-right: 1.25rem;
+    }
+
+    /* Extra small (≥480px) */
+    @media (min-width: 480px) {
+      .container_inner {
+        padding-left: 3.25rem;
+        padding-right: 3.25rem;
+      }
+    }
+
+    /* Small (≥640px) */
+    @media (min-width: 640px) {
+      .container_inner {
+        padding-left: 4.25rem;
+        padding-right: 4.25rem;
+      }
+    }
+
+    /* Medium (≥768px) */
+    @media (min-width: 768px) {
+      .container_inner {
+        padding-left: 5rem;
+        padding-right: 5rem;
+      }
+    }
+
+    /* Large (≥1024px) */
+    @media (min-width: 1024px) {
+      .container_inner {
+        padding-left: 6.5rem;
+        padding-right: 6.5rem;
+      }
+    }
+
+    /* Extra Large (≥1280px) */
+    /* @media (min-width: 1280px) {
+      .container_inner {
+        padding-left: 10rem;
+        padding-right: 10rem;
+      }
+    } */
+
+    /* 2XL (≥1536px) */
+    @media (min-width: 1536px) {
+      .container_inner {
+        padding-left: 12rem;
+        padding-right: 12rem;
+      }
+    }
   }
 
   .nav_link:hover {
@@ -81,7 +139,10 @@ h6, button {
   background-color: var(--color-bg-lime);
 }
 .bg-orange {
-  background-color: var( --color-primary);
+  background-color: var(--color-primary);
+}
+.bg-grey-card {
+  background: var(--color-gray-50);
 }
 
 /* text */
@@ -90,4 +151,56 @@ h6, button {
 }
 .text-black {
   color: var(--color-black);
+}
+
+.text-green {
+  color: var(--color-green);
+}
+
+/* Custom responsive utilities */
+@layer utilities {
+  /* Display utilities */
+  .hidden-xs {
+    display: none;
+  }
+  @media (min-width: var(--breakpoint-xs)) {
+    .xs\:block {
+      display: block;
+    }
+  }
+
+  .hidden-xsm {
+    display: none;
+  }
+  @media (min-width: var(--breakpoint-xsm)) {
+    .sm\:block {
+      display: block;
+    }
+  }
+  .hidden-sm {
+    display: none;
+  }
+  @media (min-width: var(--breakpoint-sm)) {
+    .sm\:block {
+      display: block;
+    }
+  }
+
+  .hidden-md {
+    display: none;
+  }
+  @media (min-width: var(--breakpoint-md)) {
+    .md\:block {
+      display: block;
+    }
+  }
+
+  .hidden-lg {
+    display: none;
+  }
+  @media (min-width: var(--breakpoint-lg)) {
+    .lg\:block {
+      display: block;
+    }
+  }
 }
