@@ -1,6 +1,21 @@
+// layout.tsx
 import type { Metadata } from "next";
-// import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
+import { Rubik, Questrial } from 'next/font/google';
+import './globals.css'; 
+
+const rubik = Rubik({
+  weight: ['400', '500', '600'],
+  subsets: ['latin'],
+  style: 'normal',
+  variable: '--font-rubik',
+});
+
+const questrial = Questrial({
+  weight: '400',
+  subsets: ['latin'],
+  style: 'normal',
+  variable: '--font-questrial',
+});
 
 
 export const metadata: Metadata = {
@@ -16,9 +31,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        // className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+         lang="en" className={`${rubik.variable} ${questrial.variable} antialiased`}
       >
+        <header></header>
         {children}
+          <footer></footer>
       </body>
     </html>
   );
