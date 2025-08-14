@@ -3,7 +3,7 @@ import React from "react";
 
 export default function Hero() {
   return (
-    <section className="h-auto w-full bg-[url(/mobile-hero-bg.png)] lg:bg-[url(/desktop-hero-bg.png)] @container bg-cover relative z-10 bg-right">
+    <section className="h-auto w-full bg-[url(/mobile-hero-bg.png)] lg:bg-[url(/desktop-hero-bg.png)] @container bg-cover relative bg-right">
       <div className="container_inner z-30">
         {/* texts */}
         <div className=" w-full sm:w[400px] md:w-[500px] mt-30 md:mt-50 left-0">
@@ -55,31 +55,31 @@ export default function Hero() {
         </div>
 
         {/* app store */}
-        <div className=" pt-5 pb-10 mt-10">
+        <div className=" pt-5 pb-10 mt-30 md:mt-10">
           <p className="mb-5">Download app:</p>
-          <div className="flex gap-10">
-            <div className="apple-store flex p-4 bg-[#000] text-white rounded-2xl cursor-pointer">
+          <div className="flex gap-5 md:gap-10 flex-col xs:flex-row ">
+            <div className="apple-store flex p-2 bg-[#000] text-white rounded-2xl cursor-pointer w-fit">
               <Image
                 src={`/brand-apple.svg`}
-                width={50}
-                height={50}
+                width={40}
+                height={40}
                 alt="apple-logo"
               />
               <div>
-                <p>Download on the</p>
-                <h2 className="text-2xl">App Store</h2>
+                <p className="text-sm">Download on the</p>
+                <h2 className=" text-lg sm:text-xl">App Store</h2>
               </div>
             </div>
-            <div className="play-store flex p-4 bg-[#000] text-white rounded-2xl cursor-pointer">
+            <div className="play-store flex p-2 bg-[#000] text-white rounded-2xl cursor-pointer w-fit">
               <Image
                 src={`brand-google-play.svg`}
-                width={50}
-                height={50}
+                width={40}
+                height={40}
                 alt="play-logo"
               />
               <div>
-                <p className="uppercase">get it on</p>
-                <h2 className="text-2xl">Google Play</h2>
+                <p className="uppercase text-sm">get it on</p>
+                <h2 className="text-lg sm:text-xl">Google Play</h2>
               </div>
             </div>
           </div>
