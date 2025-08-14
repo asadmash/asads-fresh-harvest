@@ -6,13 +6,27 @@ import Link from "next/link";
 import { useGetProductsQuery } from "@/features/api/productApi";
 import { Product } from "@/types/product";
 import ProductCard from "./ProductCard";
+import ProductCardSkeleton from "./ProductCardSkeleton";
 
 export default function OurProducts() {
   const { data, isLoading, isError, error } = useGetProductsQuery();
   const products = data?.data || [];
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return (
+      <div className="container_inner pt-16">
+        <div className="flex flex-wrap animate-fadeIn">
+          {Array.from({ length: 8 }).map((_, index) => (
+            <div
+              key={index}
+              className="w-full sm:w-1/2 lg:w-1/3 xl:w-1/4 px-4 mb-8"
+            >
+              <ProductCardSkeleton />
+            </div>
+          ))}
+        </div>
+      </div>
+    );
   }
 
   if (isError) {
