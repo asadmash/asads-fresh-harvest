@@ -1,24 +1,23 @@
 // layout.tsx
 import type { Metadata } from "next";
-import { Rubik, Questrial } from 'next/font/google';
-import './globals.css'; 
-import Header from "./components/Header";
-import Footer from "./components/Footer";
+import { Rubik, Questrial } from "next/font/google";
+import "./globals.css";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 const rubik = Rubik({
-  weight: ['400', '500', '600'],
-  subsets: ['latin'],
-  style: 'normal',
-  variable: '--font-rubik',
+  weight: ["400", "500", "600"],
+  subsets: ["latin"],
+  style: "normal",
+  variable: "--font-rubik",
 });
 
 const questrial = Questrial({
-  weight: '400',
-  subsets: ['latin'],
-  style: 'normal',
-  variable: '--font-questrial',
+  weight: "400",
+  subsets: ["latin"],
+  style: "normal",
+  variable: "--font-questrial",
 });
-
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -33,11 +32,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-         lang="en" className={`${rubik.variable} ${questrial.variable} antialiased`}
+        lang="en"
+        className={`${rubik.variable} ${questrial.variable} antialiased`}
       >
         <Header />
         {children}
-          <Footer />
+        <Footer />
       </body>
     </html>
   );
