@@ -1,5 +1,10 @@
 import Image from "next/image";
 import Hero from "./components/Hero";
+import OurProducts from "./components/OurProducts";
+import About from "./components/About";
+import SeasonalOffer from "./components/SeasonalOffer";
+import Testimonial from "./components/Testimonial";
+import Blog from "./components/Blog";
 
 export default function Home() {
   return (
@@ -7,8 +12,11 @@ export default function Home() {
       
       <main className="">
         <Hero />
-        <h1>my name</h1>
-       <p>hello</p>
+        <OurProducts />
+       <About />
+       <SeasonalOffer />
+       <Testimonial />
+       <Blog />
       </main>
     
     </div>
