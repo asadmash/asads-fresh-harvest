@@ -33,13 +33,13 @@
 /*
   Fonts
 */
-:root {
+/* :root {
   --font-heading: var(--font-rubik);
   --font-body: var(--font-questrial);
-}
+} */
 
 body {
-  font-family: var(--font-body), sans-serif;
+  font-family: var(--font-questrial), sans-serif;
   background-color: var(--color-background);
 }
 
@@ -50,8 +50,12 @@ h4,
 h5,
 h6,
 button {
-  font-family: var(--font-heading), sans-serif;
+  font-family: var(--font-rubik), sans-serif;
   font-weight: 500;
+}
+
+p {
+  font-family: var(--font-questrial), sans-serif;
 }
 
 @layer components {
@@ -60,7 +64,7 @@ button {
       width: 100%;
       margin-left: auto;
       margin-right: auto;
-      padding-left: 1.25rem; 
+      padding-left: 1.25rem;
       padding-right: 1.25rem;
     }
 
@@ -115,12 +119,12 @@ button {
 
   .nav_link:hover {
     transition: all 0.4s;
-    color: #ff8f9c;
+    color: #749b3f;
   }
   .nav_link::after {
     position: absolute;
     content: "";
-    background-color: #ff8f9c;
+    background-color: #749b3f;
     height: 3px;
     width: 100%;
     bottom: -5px;
@@ -132,6 +136,22 @@ button {
 
   .nav_link:hover::after {
     scale: 1;
+  }
+  .card {
+    background-color: white;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    text-align: center;
+    margin: 0.5rem;
+  }
+  .footer-card {
+    background-color: white;
+    padding: 0.3rem 0.8rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    text-align: center;
+    margin: 0.5rem;
   }
 }
 /* background */
