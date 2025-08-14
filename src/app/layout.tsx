@@ -6,8 +6,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 
 // import provider and store
-import { Provider } from "react-redux";
-import { store } from "@/store/store";
+import ReduxProvider from "@/components/ReduxProvider";
 
 const rubik = Rubik({
   weight: ["400", "500", "600"],
@@ -40,11 +39,11 @@ export default function RootLayout({
         className={`${rubik.variable} ${questrial.variable} antialiased`}
       >
         {/* wrap everything */}
-        <Provider store={store}>
+        <ReduxProvider>
           <Header />
           {children}
           <Footer />
-        </Provider>
+        </ReduxProvider>
       </body>
     </html>
   );
