@@ -3,7 +3,14 @@ import { useGetProductByIdQuery } from "@/features/api/productApi";
 import { useAppSelector } from "@/hooks/reduxHooks";
 import AuthModal from "@/components/AuthModal";
 
-export default function Page({ params }: { params: { id: string } }) {
+// define a PageProps type
+type PageProps = {
+  params: {
+    id: string;
+  };
+};
+
+export default function Page({ params }: PageProps) {
   const { data: product, isLoading } = useGetProductByIdQuery(params.id);
   const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
 
