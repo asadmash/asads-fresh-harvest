@@ -1,21 +1,23 @@
 "use client";
 
-import React, { useState } from "react";
-//import rtk hook to query product
+import React from "react";
+import Link from "next/link";
+
 import { useGetProductsQuery } from "@/features/api/productApi";
+import { Product } from "@/types/product";
 import ProductCard from "./ProductCard";
 
 export default function OurProducts() {
-  // load 12 products
-  const [limit, setLimit] = useState(12);
-  const { data: products, isLoading } = useGetProductsQuery({ limit });
+  const { data, isLoading, isError, error } = useGetProductsQuery();
+  const products = data?.data || [];
 
-  // handler function to load more product
-  const handleLoadMore = () => setLimit((prev) => prev + 12);
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
 
-  // Unique key for when real data changes
-  // const productsKey = products.map((p) => p.id).join("-");
-
+  if (isError) {
+    return <p>Error: {JSON.stringify(error)}</p>;
+  }
   return (
     <div className="@container" id="new-products">
       <div className="container_inner pt-16 flex flex-col items-center">
@@ -29,26 +31,33 @@ export default function OurProducts() {
           We pride ourselves on offering a wide variety of fresh and flavorful
           fruits, vegetables, and salad ingredients.
         </p>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-          {isLoading ? (
-            <p>Loading...</p>
-          ) : (
-            products?.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))
-          )}
-        </div>
 
-        {products?.length >= limit && (
-          <div className="text-center mt-6">
-            <button
-              onClick={handleLoadMore}
-              className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-            >
-              Load More
-            </button>
+        {products.length === 0 ? (
+          <div className="text-center text-gray-500 text-xl py-16">
+            No product found by this name
+          </div>
+        ) : (
+          <div className="flex flex-wrap animate-fadeIn">
+            {products.map((product: Product) => {
+              return (
+                <div
+                  key={product.id}
+                  className="w-full sm:w-1/2 lg:w-1/3 xl:w-1/4 px-4 mb-8"
+                >
+                  <ProductCard key={product.id} product={product} />
+                </div>
+              );
+            })}
           </div>
         )}
+        <div className="text-center mt-4">
+          <Link
+            href="/products"
+            className="px-4 py-2 text-[#ff6a19]  rounded hover:bg-[#ff6a19] hover:text-white border-[#ff6a19] border-2 transition-all font-semibold tracking-wider text-lg"
+          >
+           See All Products
+          </Link>
+        </div>
       </div>
     </div>
   );
