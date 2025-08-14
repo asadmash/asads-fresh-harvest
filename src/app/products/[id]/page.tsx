@@ -1,10 +1,5 @@
 import ProductPageClient from "./productPageClient";
 
-interface PageProps {
-  params: { id: string };
-}
-
-export default function Page({ params }: PageProps) {
-  // Server passes the id directly to the client component
+export default function Page({ params }: { params: { id: string } }) {
   return <ProductPageClient id={params.id} />;
 }
