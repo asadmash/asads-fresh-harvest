@@ -4,20 +4,20 @@ import React from "react";
 import { Product } from "@/types/product";
 
 export default function ProductCard({ product }: { product: Product }) {
-  // Dummy data for design phase
   const { images, productName: title, price, id } = product;
   const img = images && images.length > 0 ? images[0] : "/desktop-hero-bg.png";
 
   return (
+    
     <div className="px-0 border border-gray-200 rounded-xl max-w-[400px] h-full flex flex-col items-center">
-      <div className="w-full h-[200px] bg-[#f4f6f6] relative">
+      <Link href={`/products/${id}`} className="block w-full h-[200px] bg-[#f4f6f6] relative">
         <Image
-          className="w-full h-full rounded-t-xl bg-[#f4f6f6] object-contain"
+          className="rounded-t-xl bg-[#f4f6f6] object-contain"
           src={img}
           fill
           alt={title}
         />
-      </div>
+      </Link>
       <div className="space-y-2 py-2 px-4">
         <div className=" px-4 text-center">
           <h2 className="text-accent font-medium uppercase line-clamp-1 mt-2 text-center">
@@ -41,5 +41,6 @@ export default function ProductCard({ product }: { product: Product }) {
         </div>
       </div>
     </div>
+    
   );
 }
