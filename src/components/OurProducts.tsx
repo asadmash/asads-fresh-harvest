@@ -1,49 +1,20 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
+//import rtk hook to query product
+import { useGetProductsQuery } from "@/features/api/productApi";
 import ProductCard from "./ProductCard";
 
 export default function OurProducts() {
-  // Dummy products for design phase
-  const products = [
-    {
-      id: 1,
-      image: "/blog-img-2.png", // use a file in /public or an online placeholder
-      title: "Sample Product 1",
-      description:
-        "This is a short placeholder description for product one. It's here for layout testing.",
-      rating: { rate: 4.5, count: 120 },
-      price: 199,
-    },
-    {
-      id: 2,
-      image: "/blog-img-2.png",
-      title: "Sample Product 2",
-      description:
-        "Another placeholder product description to simulate real data in the UI.",
-      rating: { rate: 3.5, count: 85 },
-      price: 149,
-    },
-    {
-      id: 3,
-      image: "/blog-img-2.png",
-      title: "Sample Product 3",
-      description:
-        "A third sample product with a slightly longer description for testing line clamping.",
-      rating: { rate: 5, count: 230 },
-      price: 299,
-    },
-    {
-      id: 4,
-      image: "/blog-img-2.png",
-      title: "Sample Product 4",
-      description:
-        "This is just filler data to check how the grid layout looks with more items.",
-      rating: { rate: 4, count: 64 },
-      price: 179,
-    },
-  ];
+  // load 12 products
+  const [limit, setLimit] = useState(12);
+  const { data: products, isLoading } = useGetProductsQuery({ limit });
+
+  // handler function to load more product
+  const handleLoadMore = () => setLimit((prev) => prev + 12);
 
   // Unique key for when real data changes
-  const productsKey = products.map((p) => p.id).join("-");
+  // const productsKey = products.map((p) => p.id).join("-");
 
   return (
     <div className="@container" id="new-products">
@@ -58,33 +29,24 @@ export default function OurProducts() {
           We pride ourselves on offering a wide variety of fresh and flavorful
           fruits, vegetables, and salad ingredients.
         </p>
-        {products.length === 0 ? (
-          <div className="text-center text-gray-500 text-xl py-16">
-            No product found by this name
-          </div>
-        ) : (
-          <div
-            key={productsKey}
-            className="flex flex-wrap -mx-4 animate-fadeIn"
-          >
-            {products.map((item, index) => {
-              return (
-                <div
-                  key={index}
-                  className="w-full sm:w-1/2 lg:w-1/3 xl:w-1/4 px-4 mb-8"
-                >
-                  <ProductCard
-                    img={item.image}
-                    title={item.title}
-                    desc={item.description}
-                    rating={item.rating.rate}
-                    count={item.rating.count}
-                    price={item.price}
-                    id={item.id}
-                  />
-                </div>
-              );
-            })}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          {isLoading ? (
+            <p>Loading...</p>
+          ) : (
+            products?.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))
+          )}
+        </div>
+
+        {products?.length >= limit && (
+          <div className="text-center mt-6">
+            <button
+              onClick={handleLoadMore}
+              className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+            >
+              Load More
+            </button>
           </div>
         )}
       </div>
