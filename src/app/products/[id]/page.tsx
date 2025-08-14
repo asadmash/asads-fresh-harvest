@@ -1,6 +1,6 @@
 "use client";
 import { useGetProductByIdQuery } from "@/features/api/productApi";
-import { useAppSelector } from "@hooks/reduxHooks";
+import { useAppSelector } from "@/hooks/reduxHooks";
 import { AuthModal } from "@/components/AuthModal";
 
 export default function Page({ params }: { params: { id: string } }) {
