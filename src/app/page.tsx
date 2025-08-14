@@ -6,6 +6,7 @@ import SeasonalOffer from "../components/SeasonalOffer";
 import Testimonial from "../components/Testimonial";
 import Blog from "../components/Blog";
 
+
 export default function Home() {
   return (
     <div>
