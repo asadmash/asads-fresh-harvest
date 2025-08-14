@@ -1,37 +1,39 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { Product } from "@/types/product";
 
-export default function ProductCard() {
+export default function ProductCard({ product }: { product: Product }) {
   // Dummy data for design phase
-  const img = "/blog-img-2.png"; // put a file in /public or use "https://via.placeholder.com/300x400"
-  const title = "Sample Product";
-  const price = 199;
-  const id = 1;
+  const { images, productName: title, price, id } = product;
+  const img = images && images.length > 0 ? images[0] : "/desktop-hero-bg.png";
 
   return (
-    <div className="border border-gray-200 rounded-xl max-w-[400px] h-full p-2">
-      <div className="w-full h-[280px] p-0 m-0">
+    <div className="px-0 border border-gray-200 rounded-xl max-w-[400px] h-full flex flex-col items-center">
+      <div className="w-full h-[200px] bg-[#f4f6f6] relative">
         <Image
-          className="w-full h-full object-contain rounded-t-xl"
+          className="w-full h-full rounded-t-xl bg-[#f4f6f6] object-contain"
           src={img}
-          width={300}
-          height={280}
+          fill
           alt={title}
         />
       </div>
-      <div className="space-y-2 px-4 text-center">
-        <h2 className="text-accent font-medium uppercase line-clamp-1 mt-2 text-center">
-          {title}
-        </h2>
-        <div className="flex flex-col items-center flex-wrap gap-4 mt-4">
-          <div className="font-bold flex gap-2 items-center justify-center">
-            <span>${price}</span>
+      <div className="space-y-2 py-2 px-4">
+        <div className=" px-4 text-center">
+          <h2 className="text-accent font-medium uppercase line-clamp-1 mt-2 text-center">
+            {title}
+          </h2>
+        </div>
+        <div className="flex justify-center items-center flex-wrap gap-4 mt-4">
+          <div className="flex flex-col items-center flex-wrap">
+            <div className="font-bold flex items-center justify-center">
+              <span>${price}/kg</span>
+            </div>
           </div>
           <div className="w-full">
             <Link
               href={`/`}
-              className="bg-[#7955fa] hover:bg-[#ee623a] text-white transition-all px-4 py-2 rounded-xl font-medium block w-full text-center"
+              className=" hover:bg-[#ee623a] text-black hover:text-white font-semibold transition-all px-4 py-2 rounded-xl  block w-full text-center border-2 border-[#f4f6f6]"
             >
               Add To Cart
             </Link>
