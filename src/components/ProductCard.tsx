@@ -8,7 +8,7 @@ export default function ProductCard({ product }: { product: Product }) {
   const img = images && images.length > 0 ? images[0] : "/desktop-hero-bg.png";
 
   return (
-    <div className="px-0 border border-gray-200 rounded-xl max-w-[400px] h-full flex flex-col items-center z-10">
+    <div className="px-0 border border-gray-200 rounded-xl max-w-[400px] h-full flex flex-col items-center z-10 hover:shadow-2xl transition-all hover:border-[#749b3f]">
       <Link
         href={`/products/${id}`}
         className="block w-full h-[200px] bg-white relative rounded-t-xl overflow-hidden z-10"
