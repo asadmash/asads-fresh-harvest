@@ -6,12 +6,18 @@ import { HiOutlineShoppingBag } from "react-icons/hi";
 import { GiHamburgerMenu } from "react-icons/gi";
 import Link from "next/link";
 import Navbar from "./Navbar";
+// to show cart count
+import { useSelector } from 'react-redux';
+import { RootState } from '@/store';
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [showHeader, setShowHeader] = useState(true);
+
+  // read the cart state
+    const cartCount = useSelector((state: RootState) => state.cart.items.length);
 
   const toggleSidebar = () => {
     setSidebarOpen(!isSidebarOpen);
@@ -83,7 +89,8 @@ const Header = () => {
               <div className="relative cursor-pointer">
                 <HiOutlineShoppingBag className="text-3xl" />
                 <div className="bg-red-600 rounded-full absolute top-0 right-0 w-[18px] h-[18px] text-[12px] text-white grid place-items-center translate-x-1 -translate-y-1">
-                  {/* {state.cart.length} */}
+                  {/* show the cart item count */}
+                  {cartCount} 
                 </div>
               </div>
               <div className="sm:hidden">
