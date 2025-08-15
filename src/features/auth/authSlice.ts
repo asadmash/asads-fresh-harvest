@@ -44,9 +44,13 @@ const authSlice = createSlice({
     setRedirectAfterLogin(state, action: PayloadAction<string>) {
       state.redirectAfterLogin = action.payload;
     },
+    
+ clearRedirectAfterLogin(state) {
+      state.redirectAfterLogin = null;
+    },
   },
 });
 
 // export action and reducer
-export const { setToken, logout, openAuthModal, closeAuthModal, setRedirectAfterLogin } = authSlice.actions;
+export const { setToken, logout, openAuthModal, closeAuthModal, setRedirectAfterLogin, clearRedirectAfterLogin, } = authSlice.actions;
 export default authSlice.reducer;

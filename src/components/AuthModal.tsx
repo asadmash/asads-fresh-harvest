@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { useLoginMutation, useSignupMutation } from "@/features/auth/authApi";
 import { useAppDispatch, useAppSelector } from "@/hooks/reduxHooks";
-import { setToken, closeAuthModal } from "@/features/auth/authSlice";
+import { setToken, closeAuthModal, clearRedirectAfterLogin   } from "@/features/auth/authSlice";
 import { FiX, FiMail, FiLock, FiUser } from "react-icons/fi";
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebook } from "react-icons/fa";
@@ -150,7 +150,14 @@ export default function AuthModal({ onClose }: AuthModalProps) {
 
         {/* Social Buttons */}
         <div className="flex gap-3">
-          <button className="flex-1 border rounded py-2 flex items-center justify-center gap-2 hover:bg-gray-100 text-[14px] sm:text-sm p-2"   onClick={() => signIn("google")}>
+          <button
+            className="flex-1 border rounded py-2 flex items-center justify-center gap-2 hover:bg-gray-100 text-[14px] sm:text-sm p-2"
+              onClick={() => {
+    signIn("google", { callbackUrl: `/products/${redirectAfterLogin}` || "/" });
+    dispatch(closeAuthModal());
+    dispatch(clearRedirectAfterLogin());
+  }}
+          >
             <FcGoogle size={20} />
             Google
           </button>
