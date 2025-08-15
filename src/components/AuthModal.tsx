@@ -1,13 +1,14 @@
 "use client";
 import { useState } from "react";
 import { useLoginMutation, useSignupMutation } from "@/features/auth/authApi";
-import { useAppDispatch } from "@/hooks/reduxHooks";
-import { setToken } from "@/features/auth/authSlice";
+import { useAppDispatch, useAppSelector } from "@/hooks/reduxHooks";
+import { setToken, closeAuthModal } from "@/features/auth/authSlice";
 import { FiX, FiMail, FiLock, FiUser } from "react-icons/fi";
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebook } from "react-icons/fa";
+import { useRouter } from "next/navigation";
 
-export default function AuthModal({ onClose }: { onClose: () => void }) {
+export default function AuthModal() {
   const [isLogin, setIsLogin] = useState(true);
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
@@ -17,6 +18,13 @@ export default function AuthModal({ onClose }: { onClose: () => void }) {
   const [login] = useLoginMutation();
   const [signup] = useSignupMutation();
   const dispatch = useAppDispatch();
+  const router = useRouter();
+
+  const { showModal, redirectAfterLogin } = useAppSelector(
+    (state) => state.auth
+  );
+
+  if (!showModal) return null; // modal hidden
 
   const handleSubmit = async () => {
     try {
@@ -29,7 +37,10 @@ export default function AuthModal({ onClose }: { onClose: () => void }) {
         : await signup(payload).unwrap();
 
       dispatch(setToken(response.token));
-      onClose();
+      dispatch(closeAuthModal());
+      if (redirectAfterLogin) {
+        router.push(`/products/${redirectAfterLogin}`);
+      }
     } catch (err) {
       console.error("Auth error:", err);
     }
@@ -40,7 +51,7 @@ export default function AuthModal({ onClose }: { onClose: () => void }) {
       <div className="bg-white w-full max-w-md rounded-lg shadow-lg relative p-8 animate-fadeIn">
         {/* Close Button */}
         <button
-          onClick={onClose}
+          onClick={() => dispatch(closeAuthModal())}
           className="absolute top-4 right-4 text-gray-400 hover:text-gray-600"
         >
           <FiX size={20} />
