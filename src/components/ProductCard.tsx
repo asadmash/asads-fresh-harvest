@@ -8,17 +8,19 @@ export default function ProductCard({ product }: { product: Product }) {
   const img = images && images.length > 0 ? images[0] : "/desktop-hero-bg.png";
 
   return (
-    
-    <div className="px-0 border border-gray-200 rounded-xl max-w-[400px] h-full flex flex-col items-center">
-      <Link href={`/products/${id}`} className="block w-full h-[200px] bg-[#f4f6f6] relative">
+    <div className="px-0 border border-gray-200 rounded-xl max-w-[400px] h-full flex flex-col items-center z-10">
+      <Link
+        href={`/products/${id}`}
+        className="block w-full h-[200px] bg-white relative rounded-t-xl overflow-hidden z-10"
+      >
         <Image
-          className="rounded-t-xl bg-[#f4f6f6] object-contain"
+          className="object-cover w-full h-full"
           src={img}
           fill
           alt={title}
         />
       </Link>
-      <div className="space-y-2 py-2 px-4">
+      <div className="space-y-2 py-2 px-4 bg-white z-10 w-full rounded-b-xl">
         <div className=" px-4 text-center">
           <h2 className="text-accent font-medium uppercase line-clamp-1 mt-2 text-center">
             {title}
@@ -41,6 +43,5 @@ export default function ProductCard({ product }: { product: Product }) {
         </div>
       </div>
     </div>
-    
   );
 }
