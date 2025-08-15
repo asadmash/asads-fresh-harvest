@@ -2,15 +2,37 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { Product } from "@/types/product";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "@/store/store";
+import {
+  openAuthModal,
+  setRedirectAfterLogin,
+} from "@/features/auth/authSlice";
+import { useRouter } from "next/navigation";
 
 export default function ProductCard({ product }: { product: Product }) {
+  const { isAuthenticated } = useSelector((state: RootState) => state.auth);
+  const dispatch = useDispatch();
+  const router = useRouter();
+
+  const handleClick = (e: React.MouseEvent) => {
+    if (!isAuthenticated) {
+      e.preventDefault();
+      dispatch(setRedirectAfterLogin(product.id));
+      dispatch(openAuthModal(product.id));
+      return;
+    }
+    // Authenticated users navigate normally
+  };
+
   const { images, productName: title, price, id } = product;
   const img = images && images.length > 0 ? images[0] : "/desktop-hero-bg.png";
 
   return (
     <div className="px-0 border border-gray-200 rounded-xl max-w-[400px] h-full flex flex-col items-center z-10 hover:shadow-2xl transition-all hover:border-[#749b3f]">
       <Link
-        href={`/products/${id}`}
+        href={`/products/${product.id}`}
+        onClick={handleClick}
         className="block w-full h-[200px] bg-white relative rounded-t-xl overflow-hidden z-10"
       >
         <Image
