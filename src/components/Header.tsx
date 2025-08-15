@@ -51,7 +51,7 @@ const Header = () => {
   return (
     <>
       <div
-        className={`py-3 @container w-full fixed h-auto top-0 z-40 transition-all duration-300 ${
+        className={`py-3 @container w-full fixed h-auto z-40 transition-all duration-300 ${
           isScrolled ? "bg-[#749b3f]/60 backdrop-blur-sm" : "bg-transparent"
         } ${showHeader ? "top-0" : "-top-full"}`}
       >
