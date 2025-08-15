@@ -2,6 +2,7 @@
 
 import { useParams } from "next/navigation";
 import { useGetProductByIdQuery } from "@/features/api/productApi";
+
 import { useAppSelector } from "@/hooks/reduxHooks";
 import AuthModal from "@/components/AuthModal";
 import { section } from "motion/react-client";
@@ -9,6 +10,7 @@ import Image from "next/image";
 import { FaShoppingCart } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa";
 import ProductCard from "@/components/ProductCard";
+import RelatedProducts from "@/components/RelatedProducts";
 
 export default function ProductDetailsPage() {
   const params = useParams();
@@ -16,15 +18,15 @@ export default function ProductDetailsPage() {
 
   // const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
   const { data: response, isLoading } = useGetProductByIdQuery(
-    productId as string
+    productId as string,
+    { skip: !productId }
   );
+  const product = response?.data;
 
   // if (!isAuthenticated) return <AuthModal />;
   if (!productId) return <p>Invalid product</p>;
   if (isLoading) return <p>Loading product...</p>;
-  if (!response || !response.data) return <p>Product not found.</p>;
-
-  const product = response.data;
+  if (!product) return <p>Product not found.</p>;
 
   return (
     <section className="@container bg-[#fff]">
@@ -110,12 +112,13 @@ export default function ProductDetailsPage() {
           </div>
         </section>
         <section className="related-products text-center flex flex-col items-center">
-          
           <p className="py-1 px-4 bg-lime text-lime w-fit rounded-xl font-semibold mb-2">
             Our Poducts
-            </p>
-            <h2 className="font-bold text-xl sm:text-2xl">Related Products</h2>
-          <div className="product-container">product</div>
+          </p>
+          <h2 className="font-bold text-xl sm:text-2xl">Related Products</h2>
+          <div className="flex flex-wrap animate-fadeIn">
+            <RelatedProducts />
+          </div>
         </section>
       </div>
     </section>
