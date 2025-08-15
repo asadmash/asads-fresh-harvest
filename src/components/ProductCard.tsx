@@ -22,26 +22,25 @@ export default function ProductCard({ product }: { product: Product }) {
       dispatch(openAuthModal(product.id));
       return;
     }
-    // Authenticated users navigate normally
+    router.push(`/products/${product.id}`);
   };
 
   const { images, productName: title, price, id } = product;
   const img = images && images.length > 0 ? images[0] : "/desktop-hero-bg.png";
 
   return (
-    <div className="px-0 border border-gray-200 rounded-xl max-w-[400px] h-full flex flex-col items-center z-10 hover:shadow-2xl transition-all hover:border-[#749b3f]">
-      <Link
-        href={`/products/${product.id}`}
-        onClick={handleClick}
+    <div className="px-0 border border-gray-200 rounded-xl max-w-[400px] h-full flex flex-col items-center z-10 hover:shadow-2xl transition-all hover:border-[#749b3f]" onClick={handleClick}>
+      <div
+        
         className="block w-full h-[200px] bg-white relative rounded-t-xl overflow-hidden z-10"
       >
-        <Image
+        <Image 
           className="object-cover w-full h-full"
           src={img}
           fill
           alt={title}
         />
-      </Link>
+      </div>
       <div className="space-y-2 py-2 px-4 bg-white z-10 w-full rounded-b-xl">
         <div className=" px-4 text-center">
           <h2 className="text-accent font-medium uppercase line-clamp-1 mt-2 text-center">

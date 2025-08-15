@@ -3,44 +3,23 @@
 import { useParams } from "next/navigation";
 import { useGetProductByIdQuery } from "@/features/api/productApi";
 
-import { useAppSelector } from "@/hooks/reduxHooks";
-import AuthModal from "@/components/AuthModal";
 import Image from "next/image";
 import { FaShoppingCart } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa";
 import RelatedProducts from "@/components/RelatedProducts";
-import { useEffect, useState } from "react";
 
 export default function ProductDetailsPage() {
   const params = useParams();
   const productId = params?.id;
 
-  const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
-    const [showModal, setShowModal] = useState(false);
-
-// Auto-open modal if not authenticated
-  useEffect(() => {
-    if (!isAuthenticated) {
-      setShowModal(true);
-    }
-  }, [isAuthenticated]);
-
-  const { data: response, isLoading, refetch } = useGetProductByIdQuery(
+  const { data: response, isLoading } = useGetProductByIdQuery(
     productId as string,
-    { skip: !productId || !isAuthenticated, }
+    {
+      skip: !productId,
+    }
   );
   const product = response?.data;
 
-    // When user logs in, refetch product
-  useEffect(() => {
-    if (isAuthenticated && productId) {
-      refetch();
-    }
-  }, [isAuthenticated, productId, refetch]);
-
- if (showModal && !isAuthenticated) {
-    return <AuthModal onClose={() => setShowModal(false)} />;
-  }
   if (!productId) return <p>Invalid product</p>;
   if (isLoading) return <p>Loading product...</p>;
   if (!product) return <p>Product not found.</p>;
