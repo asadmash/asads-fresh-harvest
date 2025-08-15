@@ -7,6 +7,7 @@ import { FiX, FiMail, FiLock, FiUser } from "react-icons/fi";
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebook } from "react-icons/fa";
 import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
 
 // define props
 type AuthModalProps = {
@@ -149,7 +150,7 @@ export default function AuthModal({ onClose }: AuthModalProps) {
 
         {/* Social Buttons */}
         <div className="flex gap-3">
-          <button className="flex-1 border rounded py-2 flex items-center justify-center gap-2 hover:bg-gray-100 text-[14px] sm:text-sm p-2">
+          <button className="flex-1 border rounded py-2 flex items-center justify-center gap-2 hover:bg-gray-100 text-[14px] sm:text-sm p-2"   onClick={() => signIn("google")}>
             <FcGoogle size={20} />
             Google
           </button>
