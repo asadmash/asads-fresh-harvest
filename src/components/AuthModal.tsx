@@ -8,7 +8,12 @@ import { FcGoogle } from "react-icons/fc";
 import { FaFacebook } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 
-export default function AuthModal() {
+// define props
+type AuthModalProps = {
+  onClose: () => void;
+};
+
+export default function AuthModal({ onClose }: AuthModalProps) {
   const [isLogin, setIsLogin] = useState(true);
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
@@ -37,7 +42,7 @@ export default function AuthModal() {
         : await signup(payload).unwrap();
 
       dispatch(setToken(response.token));
-      dispatch(closeAuthModal());
+      onClose();
       if (redirectAfterLogin) {
         router.push(`/products/${redirectAfterLogin}`);
       }
