@@ -10,6 +10,8 @@ import Navbar from "./Navbar";
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isSidebarOpen, setSidebarOpen] = useState(false);
+  const [lastScrollY, setLastScrollY] = useState(0);
+  const [showHeader, setShowHeader] = useState(true);
 
   const toggleSidebar = () => {
     setSidebarOpen(!isSidebarOpen);
@@ -17,6 +19,13 @@ const Header = () => {
 
   useEffect(() => {
     const handleScroll = () => {
+      if (window.scrollY > lastScrollY) {
+        setShowHeader(false);
+      } else {
+        setShowHeader(true);
+      }
+      setLastScrollY(window.scrollY);
+
       if (window.scrollY > 0) {
         setIsScrolled(true);
       } else {
@@ -29,14 +38,22 @@ const Header = () => {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+  }, [lastScrollY]);
+
+  useEffect(() => {
+    if (isSidebarOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+  }, [isSidebarOpen]);
 
   return (
     <>
       <div
         className={`py-3 @container w-full fixed h-auto top-0 z-40 transition-all duration-300 ${
           isScrolled ? "bg-[#749b3f]/60 backdrop-blur-sm" : "bg-transparent"
-        }`}
+        } ${showHeader ? "top-0" : "-top-full"}`}
       >
         <div className="container_inner flex justify-between items-center">
           <div className="font-bold text-center pb-4 sm:pb-0 text-blackfish">
@@ -96,7 +113,7 @@ const Header = () => {
         </div>
       </div>
       {isSidebarOpen && (
-        <div className="fixed top-0 left-0 h-full w-64 bg-[#ff6a19] shadow-lg p-5 sm:hidden z-50">
+        <div className="fixed top-0 left-0 h-full w-[80%] bg-[#ff6a19] shadow-lg p-5 sm:hidden z-50">
           <ul className="flex flex-col gap-5 mt-10 font-normal text-xl">
             <li className="relative">
               <Link href="/" className="nav_link">
