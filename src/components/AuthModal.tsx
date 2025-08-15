@@ -53,7 +53,7 @@ export default function AuthModal({ onClose }: AuthModalProps) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-      <div className="bg-white w-full max-w-md rounded-lg shadow-lg relative p-8 animate-fadeIn">
+      <div className="bg-white w-full max-w-md rounded-lg shadow-lg relative p-8 mx-10 animate-fadeIn">
         {/* Close Button */}
         <button
           onClick={() => dispatch(closeAuthModal())}
@@ -63,18 +63,19 @@ export default function AuthModal({ onClose }: AuthModalProps) {
         </button>
 
         {/* Title */}
-        <h2 className="text-2xl font-bold mb-6">
+        <h2 className="text-xl md:text-2xl font-bold mb-6 text-center">
           {isLogin ? "Login" : "Register"}
         </h2>
 
         {/* Full Name (only for register) */}
         {!isLogin && (
           <div className="relative mb-3">
-            <FiUser className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+            <label htmlFor="name">Full Name</label>
+            <FiUser className="absolute left-3 top-[65%] -translate-y-1/2 text-gray-400" />
             <input
               type="text"
               placeholder="Full Name"
-              className="w-full pl-10 p-3 border rounded focus:outline-none focus:ring focus:ring-orange-300"
+              className="w-full pl-10 p-3 border rounded focus:outline-none focus:ring focus:ring-orange-300 text-[14px] sm:text-sm border-[#a6a6a6]"
               value={fullName}
               onChange={(e) => setFullName(e.target.value)}
             />
@@ -83,11 +84,12 @@ export default function AuthModal({ onClose }: AuthModalProps) {
 
         {/* Email */}
         <div className="relative mb-3">
-          <FiMail className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+          <label htmlFor="email">Email</label>
+          <FiMail className="absolute left-3 top-[65%] -translate-y-1/2 text-gray-400" />
           <input
             type="email"
             placeholder="Email"
-            className="w-full pl-10 p-3 border rounded focus:outline-none focus:ring focus:ring-orange-300"
+            className="w-full pl-10 p-3 border rounded focus:outline-none focus:ring focus:ring-orange-300 text-[14px] sm:text-sm border-[#a6a6a6]"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
@@ -95,11 +97,12 @@ export default function AuthModal({ onClose }: AuthModalProps) {
 
         {/* Password */}
         <div className="relative mb-4">
-          <FiLock className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+          <label htmlFor="password">Password</label>
+          <FiLock className="absolute left-3 top-[65%] -translate-y-1/2 text-gray-400" />
           <input
             type="password"
             placeholder="Password"
-            className="w-full pl-10 p-3 border rounded focus:outline-none focus:ring focus:ring-orange-300"
+            className="w-full pl-10 p-3 border rounded focus:outline-none focus:ring focus:ring-orange-300 text-[14px] sm:text-sm border-[#a6a6a6]"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
@@ -108,15 +111,20 @@ export default function AuthModal({ onClose }: AuthModalProps) {
         {/* Remember Me & Forgot Password */}
         {isLogin && (
           <div className="flex items-center justify-between text-sm mb-4">
-            <label className="flex items-center gap-2">
+            <label className="flex items-center gap-2 text-[14px] sm:text-sm">
               <input
                 type="checkbox"
                 checked={rememberMe}
                 onChange={() => setRememberMe(!rememberMe)}
+                className="
+     w-6 h-6 border-2 border-orange-500 bg-white rounded
+    accent-orange-500
+    cursor-pointer
+"
               />
               Remember me
             </label>
-            <button className="text-orange-500 hover:underline">
+            <button className="text-black hover:underline text-[14px] sm:text-sm">
               Forgot Password?
             </button>
           </div>
@@ -141,11 +149,11 @@ export default function AuthModal({ onClose }: AuthModalProps) {
 
         {/* Social Buttons */}
         <div className="flex gap-3">
-          <button className="flex-1 border rounded py-2 flex items-center justify-center gap-2 hover:bg-gray-100">
+          <button className="flex-1 border rounded py-2 flex items-center justify-center gap-2 hover:bg-gray-100 text-[14px] sm:text-sm p-2">
             <FcGoogle size={20} />
             Google
           </button>
-          <button className="flex-1 border rounded py-2 flex items-center justify-center gap-2 hover:bg-gray-100 text-blue-600">
+          <button className="flex-1 border rounded py-2 flex items-center justify-center gap-2 hover:bg-gray-100 text-blue-600 text-[14px] sm:text-sm p-2">
             <FaFacebook size={20} />
             Facebook
           </button>
