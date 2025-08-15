@@ -7,6 +7,7 @@ import Footer from "../components/Footer";
 
 // import provider and store
 import ReduxProvider from "@/components/ReduxProvider";
+import SProvider from "@/components/SeasonProvider";
 
 const rubik = Rubik({
   weight: ["400", "500", "600"],
@@ -40,9 +41,12 @@ export default function RootLayout({
       >
         {/* wrap everything */}
         <ReduxProvider>
-          <Header />
-          {children}
-          <Footer />
+          <SProvider>
+
+            <Header />
+          </SProvider>
+            {children}
+            <Footer />
         </ReduxProvider>
       </body>
     </html>

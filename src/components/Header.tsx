@@ -10,6 +10,7 @@ import Navbar from "./Navbar";
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store/store';
 import CartSidebar from "./CartSidebar";
+import HeaderAuthButton from "./HeaderAuthBtn";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -131,6 +132,7 @@ const Header = () => {
               </div>
             </div>
           </div>
+          <HeaderAuthButton />
         </div>
       </div>
       {isSidebarOpen && (
