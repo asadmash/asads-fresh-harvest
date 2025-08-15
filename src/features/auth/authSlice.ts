@@ -4,12 +4,16 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 interface AuthState {
   token: string | null;
   isAuthenticated: boolean;
+  showModal: boolean; 
+    redirectAfterLogin: string | null;
 }
 
 // define initial state
 const initialState: AuthState = {
   token: null,
   isAuthenticated: false,
+  showModal: false,
+    redirectAfterLogin: null,
 };
 
 // the auth slice
@@ -22,6 +26,7 @@ const authSlice = createSlice({
       state.token = action.payload;
     //   user authenticated
       state.isAuthenticated = true;
+      state.showModal = false; // close modal on login
     },
     logout(state) {
         // clear token
@@ -29,9 +34,19 @@ const authSlice = createSlice({
     //   mark user as logged out
       state.isAuthenticated = false;
     },
+     openAuthModal(state, action: PayloadAction<string | null>) {
+      state.showModal = true;
+      state.redirectAfterLogin = action.payload ?? null;
+    },
+      closeAuthModal(state) {
+      state.showModal = false;
+    },
+    setRedirectAfterLogin(state, action: PayloadAction<string>) {
+      state.redirectAfterLogin = action.payload;
+    },
   },
 });
 
 // export action and reducer
-export const { setToken, logout } = authSlice.actions;
+export const { setToken, logout, openAuthModal, closeAuthModal, setRedirectAfterLogin } = authSlice.actions;
 export default authSlice.reducer;
