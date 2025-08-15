@@ -8,6 +8,12 @@ interface ApiResponse {
   success: boolean;
 }
 
+interface SingleProductApiResponse {
+  data: Product;
+  message: string;
+  success: boolean;
+}
+
 export const productApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     // get all products
@@ -16,7 +22,7 @@ export const productApi = apiSlice.injectEndpoints({
       providesTags: ["Product"],
     }),
     // get products by id
-    getProductById: builder.query<Product, string>({
+    getProductById: builder.query<SingleProductApiResponse, string>({
       query: (id) => `/products/${id}`,
       providesTags: (result, error, id) => [{ type: "Product", id }],
     }),
