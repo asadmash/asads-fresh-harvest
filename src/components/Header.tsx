@@ -8,19 +8,33 @@ import Link from "next/link";
 import Navbar from "./Navbar";
 // to show cart count
 import { useSelector } from 'react-redux';
-import { RootState } from '@/store';
+import { RootState } from '@/store/store';
+import CartSidebar from "./CartSidebar";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [showHeader, setShowHeader] = useState(true);
+    const [isCartOpen, setCartOpen] = useState(false);
+ 
 
   // read the cart state
     const cartCount = useSelector((state: RootState) => state.cart.items.length);
+    const favCount = useSelector((state: RootState) => state.fav.items.length);
+    // check if sidebar open or close
+
 
   const toggleSidebar = () => {
     setSidebarOpen(!isSidebarOpen);
+  };
+// open cart handler
+   const openCart = () => {
+    setCartOpen(true);
+  };
+// close cart handler
+  const closeCart = () => {
+    setCartOpen(false);
   };
 
   useEffect(() => {
@@ -47,12 +61,12 @@ const Header = () => {
   }, [lastScrollY]);
 
   useEffect(() => {
-    if (isSidebarOpen) {
+    if (isSidebarOpen || isCartOpen) {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "auto";
     }
-  }, [isSidebarOpen]);
+  }, [isSidebarOpen, isCartOpen]);
 
   return (
     <>
@@ -83,10 +97,10 @@ const Header = () => {
               <div className="relative hidden sm:block">
                 <FiHeart className="text-3xl" />
                 <div className="bg-red-600 rounded-full absolute top-0 right-0 w-[18px] h-[18px] text-[12px] text-white grid place-items-center translate-x-1 -translate-y-1">
-                  {/* {state.favorites.length} */}
+                  {favCount}
                 </div>
               </div>
-              <div className="relative cursor-pointer">
+              <div className="relative cursor-pointer" onClick={openCart}>
                 <HiOutlineShoppingBag className="text-3xl" />
                 <div className="bg-red-600 rounded-full absolute top-0 right-0 w-[18px] h-[18px] text-[12px] text-white grid place-items-center translate-x-1 -translate-y-1">
                   {/* show the cart item count */}
@@ -145,6 +159,9 @@ const Header = () => {
           </ul>
         </div>
       )}
+
+        {/* Cart Sidebar */}
+      {isCartOpen && <CartSidebar onClose={closeCart} />}
     </>
   );
 };
