@@ -9,11 +9,17 @@ import {
   setRedirectAfterLogin,
 } from "@/features/auth/authSlice";
 import { useRouter } from "next/navigation";
+// to manage cart state
+import { addToCart, removeFromCart } from "@/features/cart/cartSlice";
 
 export default function ProductCard({ product }: { product: Product }) {
   const { isAuthenticated } = useSelector((state: RootState) => state.auth);
   const dispatch = useDispatch();
   const router = useRouter();
+  // cart items
+  const cartItems = useSelector((state: RootState) => state.cart.items);
+  // check if this item is in cart or not
+  const isInCart = cartItems.some((item) => item.id === product.id);
 
   const handleClick = (e: React.MouseEvent) => {
     if (!isAuthenticated) {
@@ -29,12 +35,12 @@ export default function ProductCard({ product }: { product: Product }) {
   const img = images && images.length > 0 ? images[0] : "/desktop-hero-bg.png";
 
   return (
-    <div className="px-0 border border-gray-200 rounded-xl max-w-[400px] h-full flex flex-col items-center z-10 hover:shadow-2xl transition-all hover:border-[#749b3f]" onClick={handleClick}>
-      <div
-        
-        className="block w-full h-[200px] bg-white relative rounded-t-xl overflow-hidden z-10"
-      >
-        <Image 
+    <div
+      className="px-0 border border-gray-200 rounded-xl max-w-[400px] h-full flex flex-col items-center z-10 hover:shadow-2xl transition-all hover:border-[#749b3f]"
+      onClick={handleClick}
+    >
+      <div className="block w-full h-[200px] bg-white relative rounded-t-xl overflow-hidden z-10">
+        <Image
           className="object-cover w-full h-full"
           src={img}
           fill
@@ -54,12 +60,17 @@ export default function ProductCard({ product }: { product: Product }) {
             </div>
           </div>
           <div className="w-full">
-            <Link
-              href={`/`}
+            {/* Cart button */}
+            <button
               className=" hover:bg-[#ee623a] text-black hover:text-white font-semibold transition-all px-4 py-2 rounded-xl  block w-full text-center border-2 border-[#f4f6f6]"
+              onClick={() =>
+                isInCart
+                  ? dispatch(removeFromCart(product.id))
+                  : dispatch(addToCart(product))
+              }
             >
-              Add To Cart
-            </Link>
+              {isInCart ? "Remove from Cart" : "Add to Cart"}
+            </button>
           </div>
         </div>
       </div>
