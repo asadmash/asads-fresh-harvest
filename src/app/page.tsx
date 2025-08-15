@@ -1,13 +1,14 @@
-
 import Hero from "../components/Hero";
 import OurProducts from "../components/OurProducts";
 import About from "../components/About";
 import SeasonalOffer from "../components/SeasonalOffer";
 import Testimonial from "../components/Testimonial";
 import Blog from "../components/Blog";
+import AuthModalHandler from "@/components/AuthModalHandler";
 
 
 export default function Home() {
+
   return (
     <div>
       <main className="">
@@ -17,6 +18,7 @@ export default function Home() {
         <SeasonalOffer />
         <Testimonial />
         <Blog />
+        <AuthModalHandler />
       </main>
     </div>
   );
