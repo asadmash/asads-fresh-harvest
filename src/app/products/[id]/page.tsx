@@ -50,7 +50,9 @@ export default function ProductDetailsPage() {
             <div className="starCount">
               <p>5.0(1 review)</p>
             </div>
-            <div className="weight text-[#ff6a19] font-bold text-lg">$6.3/kg</div>
+            <div className="weight text-[#ff6a19] font-bold text-lg">
+              $6.3/kg
+            </div>
             <p className="product-desc text-[16px]">
               From our farm directly to your door, our fresh coconuts are
               harvested at the peak of ripeness, offering you a sweet, hydrating
@@ -61,9 +63,13 @@ export default function ProductDetailsPage() {
             <div className="quantity flex gap-2 mt-20 mb-10 md:mt-10">
               <h3>Quantity</h3>
               <div className="box border border-[#a6a6a6] flex gap-2 w-[150px] justify-around items-center">
-                <span className="decrese border-r border-[#a6a6a6] flex-1/3 text-center">-</span>
+                <span className="decrese border-r border-[#a6a6a6] flex-1/3 text-center">
+                  -
+                </span>
                 <strong className="flex-1/3 text-center">1</strong>
-                <span className="increase border-l border-[#a6a6a6] flex-1/3 text-center">+</span>
+                <span className="increase border-l border-[#a6a6a6] flex-1/3 text-center">
+                  +
+                </span>
               </div>
               <span>/kg</span>
             </div>
@@ -75,18 +81,22 @@ export default function ProductDetailsPage() {
               </button>
               <button className="add-cart px-4 py-2 bg-[#ff6a19] hover:bg-[#d9d9d9] flex gap-2 justify-center items-center rounded-lg w-full lg:w-fit">
                 <FaShoppingCart className="text-white" />
-                
+
                 <p className="text-white font-semibold">Add to cart</p>
               </button>
             </div>
           </div>
         </section>
-        <section className="details">
-          <div className="navigator">
-            <div>Description</div>
-            <div>Reviews</div>
+        <section className="details my-10 md:my-20">
+          <div className="navigator flex gap-2 md:gap-4">
+            <div className="py-1 px-4 border border-[#a6a6a6]/40 hover:bg-bg-lime focus:bg-bg-lime text-lime w-fit rounded-lg font-semibold mb-2">
+              Description
+            </div>
+            <div className="py-1 px-4 border border-[#a6a6a6]/40 hover:bg-bg-lime focus:bg-bg-lime text-lime w-fit rounded-lg font-semibold mb-2">
+              Reviews
+            </div>
           </div>
-          <div className="description">
+          <div className="description text[14px] md:text[16px] bg-[#f4f6f6] p-4 md:p-8 rounded-2xl text-justify mt-5">
             Our coconuts are sustainably grown, ensuring the best quality and
             taste. Each coconut is handpicked and carefully prepared, offering
             you the freshest product possible. Rich in healthy fats,
@@ -99,9 +109,12 @@ export default function ProductDetailsPage() {
             from nature.
           </div>
         </section>
-        <section className="related-products">
-          <p>Our Poducts</p>
-          <h2>Related Products</h2>
+        <section className="related-products text-center flex flex-col items-center">
+          
+          <p className="py-1 px-4 bg-lime text-lime w-fit rounded-xl font-semibold mb-2">
+            Our Poducts
+            </p>
+            <h2 className="font-bold text-xl sm:text-2xl">Related Products</h2>
           <div className="product-container">product</div>
         </section>
       </div>
