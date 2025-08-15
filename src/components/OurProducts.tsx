@@ -7,7 +7,6 @@ import { useGetProductsQuery } from "@/features/api/productApi";
 import { Product } from "@/types/product";
 import ProductCard from "./ProductCard";
 import ProductCardSkeleton from "./ProductCardSkeleton";
-import { HoverEffect } from "./ui/card-hover-effect";
 
 export default function OurProducts() {
   const { data, isLoading, isError, error } = useGetProductsQuery();
@@ -33,7 +32,6 @@ export default function OurProducts() {
   if (isError) {
     return <p>Error: {JSON.stringify(error)}</p>;
   }
-
   return (
     <div className="@container" id="new-products">
       <div className="container_inner pt-16 flex flex-col items-center">
@@ -53,17 +51,25 @@ export default function OurProducts() {
             No product found by this name
           </div>
         ) : (
-          <HoverEffect
-            items={products}
-            renderItem={(item) => <ProductCard product={item} />}
-          />
+          <div className="flex flex-wrap animate-fadeIn">
+            {products.map((product: Product) => {
+              return (
+                <div
+                  key={product.id}
+                  className="w-full sm:w-1/2 lg:w-1/3 xl:w-1/4 px-4 mb-8"
+                >
+                  <ProductCard key={product.id} product={product} />
+                </div>
+              );
+            })}
+          </div>
         )}
         <div className="text-center mt-4">
           <Link
             href="/products"
-            className="px-4 py-2 text-[#ff6a19] rounded hover:bg-[#ff6a19] hover:text-white border-[#ff6a19] border-2 transition-all font-semibold tracking-wider text-lg"
+            className="px-4 py-2 text-[#ff6a19]  rounded hover:bg-[#ff6a19] hover:text-white border-[#ff6a19] border-2 transition-all font-semibold tracking-wider text-lg"
           >
-            See All Products
+           See All Products
           </Link>
         </div>
       </div>
