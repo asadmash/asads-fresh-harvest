@@ -159,24 +159,24 @@ const Header = () => {
           </button>
           <ul className="flex flex-col gap-2 md:gap-4 mt-10 font-normal text-lg">
             <li className="relative">
-              <Link href="/" className="nav_link">
+              <a href="#home" className="nav_link">
                 Home
-              </Link>
+              </a>
             </li>
             <li className="relative">
-              <Link href="/" className="nav_link">
+              <a href="#shop" className="nav_link">
                 Shop
-              </Link>
+              </a>
             </li>
             <li className="relative">
-              <Link href="/" className="nav_link">
+              <a href="#about-us" className="nav_link">
                 About us
-              </Link>
+              </a>
             </li>
             <li className="relative">
-              <Link href="/" className="nav_link">
+              <a href="#blog" className="nav_link">
                 Blog
-              </Link>
+              </a>
             </li>
           </ul>
         </div>
