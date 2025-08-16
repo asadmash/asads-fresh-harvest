@@ -6,7 +6,8 @@ import {
   useGetProductsQuery,
 } from "@/features/api/productApi";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/store/store";
 import { addToCart } from "@/features/cart/cartSlice";
 import { addToFav } from "@/features/fav/favSlice";
 import Image from "next/image";
@@ -37,6 +38,9 @@ export default function ProductDetailsPage() {
   const categoryName =
     allProducts.find((p) => p.categoryId === product?.categoryId)
       ?.categoryName || "";
+
+  const favItems = useSelector((state: RootState) => state.fav.items);
+  const isFavorited = favItems.some((item) => item.id === product?.id);
 
   const increaseQuantity = () => {
     setQuantity((prev) => prev + 1);
@@ -143,8 +147,10 @@ export default function ProductDetailsPage() {
                 className="add-fav px-4 py-2 bg-[#f4f6f6] hover:bg-[#d9d9d9] flex gap-2 justify-center items-center rounded-lg w-full lg:w-fit"
                 onClick={handleAddToFav}
               >
-                <FaHeart className="text-[#d9d9d9]" />
-                <p className="text-[#4a4a52] font-semibold">Save as favorite</p>
+                <FaHeart className={isFavorited ? "text-red-500" : "text-[#d9d9d9]"} />
+                <p className="text-[#4a4a52] font-semibold">
+                  {isFavorited ? "Saved to favorite" : "Save as favorite"}
+                </p>
               </button>
               <button
                 className="add-cart px-4 py-2 bg-[#ff6a19] hover:bg-[#d9d9d9] flex gap-2 justify-center items-center rounded-lg w-full lg:w-fit disabled:opacity-50"
