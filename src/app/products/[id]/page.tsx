@@ -1,13 +1,16 @@
 "use client";
 
 import { useParams } from "next/navigation";
-import { useGetProductByIdQuery } from "@/features/api/productApi";
+import {
+  useGetProductByIdQuery,
+  useGetProductsQuery,
+} from "@/features/api/productApi";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addToCart } from "@/features/cart/cartSlice";
 import { addToFav } from "@/features/fav/favSlice";
 import Image from "next/image";
-import { FaShoppingCart, FaHeart } from "react-icons/fa";
+import { FaShoppingCart, FaHeart, FaStar, FaStarHalfAlt } from "react-icons/fa";
 import RelatedProducts from "@/components/ui/RelatedProducts";
 import SProvider from "@/components/partials/SeasonProvider";
 import ProductDetailsSkeleton from "@/components/ui/ProductDetailsSkeleton";
@@ -27,6 +30,13 @@ export default function ProductDetailsPage() {
     }
   );
   const product = response?.data;
+
+  const { data: allProductsResponse } = useGetProductsQuery();
+  const allProducts = allProductsResponse?.data || [];
+
+  const categoryName =
+    allProducts.find((p) => p.categoryId === product?.categoryId)
+      ?.categoryName || "";
 
   const increaseQuantity = () => {
     setQuantity((prev) => prev + 1);
@@ -56,6 +66,20 @@ export default function ProductDetailsPage() {
   if (isLoading) return <ProductDetailsSkeleton />;
   if (!product) return <p>Product not found.</p>;
 
+  const renderStars = (rating: number) => {
+    const stars = [];
+    for (let i = 1; i <= 5; i++) {
+      if (i <= rating) {
+        stars.push(<FaStar key={i} className="text-yellow-500" />);
+      } else if (i - 0.5 <= rating) {
+        stars.push(<FaStarHalfAlt key={i} className="text-yellow-500" />);
+      } else {
+        stars.push(<FaStar key={i} className="text-gray-300" />);
+      }
+    }
+    return stars;
+  };
+
   return (
     <section className="@container bg-[#fff]">
       <div className="container_inner mt-20">
@@ -74,22 +98,26 @@ export default function ProductDetailsPage() {
           </div>
           <div className="pt-10 md:pt-0 flex-1/2">
             <p className="py-1 px-4 bg-lime text-lime w-fit rounded-xl font-semibold mb-2">
-              Fruits
+              Fruites
             </p>
-            <h2 className="font-bold text-xl sm:text-2xl">Coconut</h2>
-            <div className="starCount">
-              <p>5.0(1 review)</p>
+            <h2 className="font-bold text-xl sm:text-2xl">
+              {product.productName}
+            </h2>
+            <div className="starCount flex items-center">
+              {typeof product.rating === "number" &&
+                renderStars(product.rating)}
+              {typeof product.rating === "number" && (
+                <p className="ml-2">
+                  {product.rating.toFixed(1)} ({product.reviews?.length || 0}{" "}
+                  review
+                  {product.reviews?.length !== 1 && "s"})
+                </p>
+              )}
             </div>
             <div className="weight text-[#ff6a19] font-bold text-lg">
-              $6.3/kg
+              ${product.price.toFixed(2)}/kg
             </div>
-            <p className="product-desc text-[16px]">
-              From our farm directly to your door, our fresh coconuts are
-              harvested at the peak of ripeness, offering you a sweet, hydrating
-              treat full of flavor. Packed with natural nutrients, coconut is
-              perfect for a variety of culinary uses, from smoothies to savory
-              dishes, or even for a refreshing drink straight from the shell.
-            </p>
+            <p className="product-desc text-[16px]">{product.description}</p>
             <div className="quantity flex gap-2 mt-20 mb-10 md:mt-10">
               <h3>Quantity</h3>
               <div className="box border border-[#a6a6a6] flex gap-2 w-[150px] justify-around items-center">
@@ -140,17 +168,8 @@ export default function ProductDetailsPage() {
               Reviews
             </div>
           </div>
-          <div className="description text[14px] md:text[16px] bg-[#f4f6f6] p-4 md:p-8 rounded-2xl text-justify mt-5">
-            Our coconuts are sustainably grown, ensuring the best quality and
-            taste. Each coconut is handpicked and carefully prepared, offering
-            you the freshest product possible. Rich in healthy fats,
-            electrolytes, and essential nutrients, coconuts provide both
-            hydration and nourishment. Whether youre using the water, flesh, or
-            milk, our coconuts bring versatility to your kitchen while
-            supporting healthy living. Perfect for smoothies, desserts, curries,
-            and more - let the natural sweetness of the coconut elevate your
-            recipes. Enjoy the tropical goodness in its purest form, directly
-            from nature.
+          <div className="description text[14px] md:text[16px] bg-[#f4f6f6] p-4 md:p-8 rounded-2xl text-justify mt-5 max-w-[1000px]">
+            {product.description}
           </div>
         </section>
         <section className="related-products text-center flex flex-col items-center">
