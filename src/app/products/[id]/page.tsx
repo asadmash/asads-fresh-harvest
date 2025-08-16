@@ -5,10 +5,12 @@ import { useGetProductByIdQuery } from "@/features/api/productApi";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addToCart } from "@/features/cart/cartSlice";
+import { addToFav } from "@/features/fav/favSlice";
 import Image from "next/image";
 import { FaShoppingCart, FaHeart } from "react-icons/fa";
 import RelatedProducts from "@/components/ui/RelatedProducts";
 import SProvider from "@/components/partials/SeasonProvider";
+import ProductDetailsSkeleton from "@/components/ui/ProductDetailsSkeleton";
 
 export default function ProductDetailsPage() {
   const params = useParams();
@@ -44,8 +46,14 @@ export default function ProductDetailsPage() {
     }
   };
 
+  const handleAddToFav = () => {
+    if (product) {
+      dispatch(addToFav(product));
+    }
+  };
+
   if (!productId) return <p>Invalid product</p>;
-  if (isLoading) return <p>Loading product...</p>;
+  if (isLoading) return <ProductDetailsSkeleton />;
   if (!product) return <p>Product not found.</p>;
 
   return (
@@ -103,7 +111,10 @@ export default function ProductDetailsPage() {
             </div>
 
             <div className="fav-cart flex flex-col md:flex-row flex-wrap gap-4">
-              <button className="add-fav px-4 py-2 bg-[#f4f6f6] hover:bg-[#d9d9d9] flex gap-2 justify-center items-center rounded-lg w-full lg:w-fit">
+              <button
+                className="add-fav px-4 py-2 bg-[#f4f6f6] hover:bg-[#d9d9d9] flex gap-2 justify-center items-center rounded-lg w-full lg:w-fit"
+                onClick={handleAddToFav}
+              >
                 <FaHeart className="text-[#d9d9d9]" />
                 <p className="text-[#4a4a52] font-semibold">Save as favorite</p>
               </button>
