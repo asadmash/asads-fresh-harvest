@@ -1,6 +1,6 @@
 "use client";
 
-import { useAppSelector, useAppDispatch } from "@/hooks/reduxHooks";
+import { useAppDispatch } from "@/hooks/reduxHooks";
 import { openAuthModal } from "@/features/auth/authSlice";
 import { signOut, useSession } from "next-auth/react";
 
@@ -12,19 +12,18 @@ export default function HeaderAuthButton() {
 
   return session ? (
     <button
-  onClick={async () => {
-    try {
-      // Just sign out with NextAuth and redirect
-      await signOut({ callbackUrl: "/" });
-    } catch (err) {
-      console.error("Error signing out:", err);
-    }
-  }}
-  className="px-2 py-2 bg-orange-500 text-white rounded hover:bg-orange-600 transition max-[400px]:hidden"
->
-  Sign Out
-</button>
-
+      onClick={async () => {
+        try {
+          // Just sign out with NextAuth and redirect
+          await signOut({ callbackUrl: "/" });
+        } catch (err) {
+          console.error("Error signing out:", err);
+        }
+      }}
+      className="px-2 py-2 bg-orange-500 text-white rounded hover:bg-orange-600 transition max-[400px]:hidden"
+    >
+      Sign Out
+    </button>
   ) : (
     <button
       onClick={() => dispatch(openAuthModal(null))} // open modal for login

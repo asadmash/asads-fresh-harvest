@@ -36,7 +36,7 @@ export default function ProductCard({ product }: { product: Product }) {
     router.push(`/products/${product.id}`);
   };
 
-  const { images, productName: title, price, id } = product;
+  const { images, productName: title, price } = product;
   const img = images && images.length > 0 ? images[0] : "/desktop-hero-bg.png";
 
   return (

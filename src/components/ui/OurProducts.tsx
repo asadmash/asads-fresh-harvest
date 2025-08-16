@@ -5,8 +5,8 @@ import Link from "next/link";
 
 import { useGetProductsQuery } from "@/features/api/productApi";
 import { Product } from "@/types/product";
-import ProductCard from "./ProductCard";
-import ProductCardSkeleton from "./ProductCardSkeleton";
+import ProductCard from "@/components/ui/ProductCard";
+import ProductCardSkeleton from "@/components/ui/ProductCardSkeleton";
 
 export default function OurProducts() {
   const { data, isLoading, isError, error } = useGetProductsQuery();
