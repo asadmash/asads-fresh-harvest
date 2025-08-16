@@ -7,6 +7,8 @@ export interface Product {
   stock: number;
   categoryId: string;
   categoryName?: string;
+  rating: number;
+  reviews: string[];
   isDeleted: boolean;
   createdAt: string;
   updatedAt: string;
