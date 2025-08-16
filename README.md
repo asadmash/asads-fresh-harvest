@@ -1,36 +1,124 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Full-Featured E-Commerce Frontend
 
-## Getting Started
+A **full-featured e-commerce frontend** built with **Next.js 15**, demonstrating modern **state management**, **backend API handling**, **authentication**, and **RTK Query** for data fetching. This project is production-ready and can be deployed on **Vercel** or **Cloudflare Pages**.  
 
-First, run the development server:
+---
 
-```bash
+## Features
+
+- **Next.js 15 (App Router)** for modern React routing  
+- **React & Tailwind CSS** for responsive, modern UI  
+- **State management** with **Redux Toolkit (RTK Query)** for API interactions  
+- **Google & Facebook OAuth authentication** via **NextAuth.js**  
+- Dynamic **product listing and details** pages  
+- Cart and favorites management  
+- SSR and SSG where applicable  
+- Optimized for **Vercel** and **Cloudflare Pages** deployments  
+
+---
+
+## Table of Contents
+
+- [Requirements](#requirements)  
+- [Environment Variables](#environment-variables)  
+- [Getting Started (Local)](#getting-started-local)  
+- [Building for Production](#building-for-production)  
+- [Deployment](#deployment)  
+- [RTK Query Notes](#rtk-query-notes)  
+- [License](#license)  
+
+---
+
+## Requirements
+
+- Node.js >= 18.x  
+- npm or yarn  
+- Git  
+
+---
+
+## Environment Variables
+
+Create a `.env.local` file in the project root with the following variables:
+
+```env
+NEXTAUTH_URL=http://localhost:3000
+NEXTAUTH_SECRET=your_nextauth_secret
+GOOGLE_CLIENT_ID=your_google_client_id
+GOOGLE_CLIENT_SECRET=your_google_client_secret
+FACEBOOK_CLIENT_ID=your_facebook_client_id
+FACEBOOK_CLIENT_SECRET=your_facebook_client_secret
+DATABASE_URL=your_database_url   # Optional, if using a DB
+```
+#Getting Started (Local)
+
+##Clone the repository:
+
+git clone https://github.com/yourusername/your-project.git
+cd your-project
+
+##Install dependencies:
+
+npm install
+# or
+yarn
+
+#Run the development server:
+
 npm run dev
 # or
 yarn dev
+Open http://localhost:3000 to view the app.
+The app reloads automatically on code changes.
+
+#Building for Production
+
+##Build the project:
+
+npm run build
 # or
-pnpm dev
+yarn build
+
+##Optionally, start the production server locally:
+
+npm start
 # or
-bun dev
-```
+yarn start
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+#Deployment
+##Vercel
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Push your project to GitHub.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Go to Vercel → New Project → Import Git Repository.
 
-## Learn More
+Set environment variables in the Vercel dashboard.
 
-To learn more about Next.js, take a look at the following resources:
+Deploy.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Your production URL will look like:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+https://your-project.vercel.app
 
-## Deploy on Vercel
+##Cloudflare Pages
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Push your project to GitHub.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Go to Cloudflare Pages → Create a Project → Connect Git Repository.
+
+Set build command:
+
+npm run build
+# or
+yarn build
+
+
+#RTK Query Notes
+
+RTK Query is used for all API requests and state management.
+
+Handles caching, fetching, and state updates automatically.
+
+Make sure your apiSlice endpoints are configured with the correct backend API URLs.
+
+Works seamlessly with authentication and protected routes.
