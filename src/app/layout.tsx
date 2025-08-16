@@ -2,12 +2,12 @@
 import type { Metadata } from "next";
 import { Rubik, Questrial } from "next/font/google";
 import "./globals.css";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
+import Header from "../components/ui/Header";
+import Footer from "../components/ui/Footer";
 
 // import provider and store
-import ReduxProvider from "@/components/ReduxProvider";
-import SProvider from "@/components/SeasonProvider";
+import ReduxProvider from "@/components/partials/ReduxProvider";
+import SProvider from "@/components/partials/SeasonProvider";
 
 const rubik = Rubik({
   weight: ["400", "500", "600"],
@@ -42,11 +42,10 @@ export default function RootLayout({
         {/* wrap everything */}
         <ReduxProvider>
           <SProvider>
-
             <Header />
           </SProvider>
-            {children}
-            <Footer />
+          {children}
+          <Footer />
         </ReduxProvider>
       </body>
     </html>

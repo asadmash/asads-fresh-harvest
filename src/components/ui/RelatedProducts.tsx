@@ -5,7 +5,7 @@ import {
   useGetProductByIdQuery,
   useGetProductsQuery,
 } from "@/features/api/productApi";
-import ProductCard from "./ProductCard";
+import ProductCard from "@/components/ui/ProductCard";
 
 export default function RelatedProducts() {
   const { id } = useParams();

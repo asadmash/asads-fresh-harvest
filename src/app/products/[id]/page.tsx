@@ -6,7 +6,8 @@ import { useGetProductByIdQuery } from "@/features/api/productApi";
 import Image from "next/image";
 import { FaShoppingCart } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa";
-import RelatedProducts from "@/components/RelatedProducts";
+import RelatedProducts from "@/components/ui/RelatedProducts";
+import SProvider from "@/components/partials/SeasonProvider";
 
 export default function ProductDetailsPage() {
   const params = useParams();
@@ -113,7 +114,9 @@ export default function ProductDetailsPage() {
           </p>
           <h2 className="font-bold text-xl sm:text-2xl">Related Products</h2>
           <div className="flex flex-wrap animate-fadeIn">
-            <RelatedProducts />
+            <SProvider>
+              <RelatedProducts />
+            </SProvider>
           </div>
         </section>
       </div>

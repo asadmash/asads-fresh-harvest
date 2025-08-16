@@ -7,33 +7,31 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import Link from "next/link";
 import Navbar from "./Navbar";
 // to show cart count
-import { useSelector } from 'react-redux';
-import { RootState } from '@/store/store';
-import CartSidebar from "./CartSidebar";
-import HeaderAuthButton from "./HeaderAuthBtn";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/store";
+import CartSidebar from "../partials/CartSidebar";
+import HeaderAuthButton from "../partials/HeaderAuthBtn";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [showHeader, setShowHeader] = useState(true);
-    const [isCartOpen, setCartOpen] = useState(false);
- 
+  const [isCartOpen, setCartOpen] = useState(false);
 
   // read the cart state
-    const cartCount = useSelector((state: RootState) => state.cart.items.length);
-    const favCount = useSelector((state: RootState) => state.fav.items.length);
-    // check if sidebar open or close
-
+  const cartCount = useSelector((state: RootState) => state.cart.items.length);
+  const favCount = useSelector((state: RootState) => state.fav.items.length);
+  // check if sidebar open or close
 
   const toggleSidebar = () => {
     setSidebarOpen(!isSidebarOpen);
   };
-// open cart handler
-   const openCart = () => {
+  // open cart handler
+  const openCart = () => {
     setCartOpen(true);
   };
-// close cart handler
+  // close cart handler
   const closeCart = () => {
     setCartOpen(false);
   };
@@ -85,59 +83,63 @@ const Header = () => {
                 height={50}
                 alt="logo"
                 priority
-                className="w-[50px] h-[40px] sm:w-[60px] sm:h-[50px]"
+                className="w-[40px] h-[30px] sm:w-[60px] sm:h-[50px]"
               />
-              <h2 className="text-2xl">Fresh Harvest</h2>
+              <h2 className="text-xl md:text-2xl">Fresh Harvest</h2>
             </Link>
           </div>
-          <div className="flex items-center gap-10">
-            <div className="hidden sm:block">
+          <div className="flex items-center gap-2">
+            <div className="hidden md:block">
               <Navbar />
             </div>
-            <div className="flex items-center gap-5 text-white">
-              <div className="relative hidden sm:block">
-                <FiHeart className="text-3xl" />
-                <div className="bg-red-600 rounded-full absolute top-0 right-0 w-[18px] h-[18px] text-[12px] text-white grid place-items-center translate-x-1 -translate-y-1">
-                  {favCount}
+            <div>
+              <div className="flex items-center gap-5 text-white">
+                <div className="relative hidden sm:block">
+                  <FiHeart className="text-[14px] sm:text-3xl" />
+                  <div className="bg-red-600 rounded-full absolute top-0 right-0 w-[18px] h-[18px] text-[12px] text-white grid place-items-center translate-x-1 -translate-y-1">
+                    {favCount}
+                  </div>
                 </div>
-              </div>
-              <div className="relative cursor-pointer" onClick={openCart}>
-                <HiOutlineShoppingBag className="text-3xl" />
-                <div className="bg-red-600 rounded-full absolute top-0 right-0 w-[18px] h-[18px] text-[12px] text-white grid place-items-center translate-x-1 -translate-y-1">
-                  {/* show the cart item count */}
-                  {cartCount} 
+                <div className="relative cursor-pointer" onClick={openCart}>
+                  <HiOutlineShoppingBag className="text-[25px] sm:text-3xl" />
+                  <div className="bg-red-600 rounded-full absolute top-0 right-0 w-[18px] h-[18px] text-[12px] text-white grid place-items-center translate-x-1 -translate-y-1">
+                    {/* show the cart item count */}
+                    {cartCount}
+                  </div>
                 </div>
-              </div>
-              <div className="sm:hidden">
-                <button onClick={toggleSidebar}>
-                  {isSidebarOpen ? (
-                    <svg
-                      className="w-6 h-6 text-white"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M6 18L18 6M6 6l12 12"
-                      ></path>
-                    </svg>
-                  ) : (
-                    <GiHamburgerMenu className="text-white text-2xl" />
-                  )}
-                </button>
+                <div className="md:hidden">
+                  <button onClick={toggleSidebar}>
+                    <GiHamburgerMenu className="text-white text-xl md:text-2xl" />
+                  </button>
+                </div>
               </div>
             </div>
+            <HeaderAuthButton />
           </div>
-          <HeaderAuthButton />
         </div>
       </div>
       {isSidebarOpen && (
-        <div className="fixed top-0 left-0 h-full w-[80%] bg-[#ff6a19] shadow-lg p-5 sm:hidden z-50">
-          <ul className="flex flex-col gap-5 mt-10 font-normal text-xl">
+        <div className="fixed top-0 left-0 h-full w-[80%] bg-[#ff6a19] shadow-lg p-5 md:hidden z-50">
+          <button
+            onClick={toggleSidebar}
+            className="absolute top-5 right-5 text-white text-xl sm:text-2xl"
+          >
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M6 18L18 6M6 6l12 12"
+              ></path>
+            </svg>
+          </button>
+          <ul className="flex flex-col gap-2 md:gap-4 mt-10 font-normal text-lg">
             <li className="relative">
               <Link href="/" className="nav_link">
                 Home
@@ -162,7 +164,7 @@ const Header = () => {
         </div>
       )}
 
-        {/* Cart Sidebar */}
+      {/* Cart Sidebar */}
       {isCartOpen && <CartSidebar onClose={closeCart} />}
     </>
   );

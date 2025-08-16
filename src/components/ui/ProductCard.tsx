@@ -1,8 +1,10 @@
+"use client";
 import Image from "next/image";
-import Link from "next/link";
 import React from "react";
 import { Product } from "@/types/product";
 import { useSelector, useDispatch } from "react-redux";
+import { useSession } from "next-auth/react";
+
 import { RootState } from "@/store/store";
 import {
   openAuthModal,
@@ -13,7 +15,10 @@ import { useRouter } from "next/navigation";
 import { addToCart, removeFromCart } from "@/features/cart/cartSlice";
 
 export default function ProductCard({ product }: { product: Product }) {
-  const { isAuthenticated } = useSelector((state: RootState) => state.auth);
+  const { data: session } = useSession();
+  const isAuthenticated = !!session;
+
+  // const { isAuthenticated } = useSelector((state: RootState) => state.auth);
   const dispatch = useDispatch();
   const router = useRouter();
   // cart items
@@ -63,11 +68,12 @@ export default function ProductCard({ product }: { product: Product }) {
             {/* Cart button */}
             <button
               className=" hover:bg-[#ee623a] text-black hover:text-white font-semibold transition-all px-4 py-2 rounded-xl  block w-full text-center border-2 border-[#f4f6f6]"
-              onClick={() =>
+              onClick={(e) => {
+                e.stopPropagation(); // prevent card onClick
                 isInCart
                   ? dispatch(removeFromCart(product.id))
-                  : dispatch(addToCart(product))
-              }
+                  : dispatch(addToCart(product));
+              }}
             >
               {isInCart ? "Remove from Cart" : "Add to Cart"}
             </button>

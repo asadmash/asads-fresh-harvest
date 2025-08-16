@@ -2,7 +2,7 @@
 
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "@/store/store";
-import AuthModal from "@/components/AuthModal";
+import AuthModal from "@/components/partials/AuthModal";
 import { useRouter } from "next/navigation";
 import { closeAuthModal } from "@/features/auth/authSlice";
 
