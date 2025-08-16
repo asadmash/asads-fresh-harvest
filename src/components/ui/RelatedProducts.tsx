@@ -31,7 +31,7 @@ export default function RelatedProducts() {
   return (
      <div className="flex flex-wrap animate-fadeIn -mx-4">
       {filteredProducts?.length
-        ? filteredProducts.map((product) => (
+        ? filteredProducts.slice(0, 4).map((product) => (
             <div
               key={product.id}
               className="w-full sm:w-1/2 lg:w-1/3 xl:w-1/4 px-4 mb-8"
