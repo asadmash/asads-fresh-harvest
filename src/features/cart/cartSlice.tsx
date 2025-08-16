@@ -8,7 +8,10 @@ interface CartState {
 
 // initial state
 const initialState: CartState = {
-  items: [],
+  items:
+    typeof window !== "undefined" && localStorage.getItem("cart")
+      ? JSON.parse(localStorage.getItem("cart")!)
+      : [],
 };
 
 const cartSlice = createSlice({
@@ -25,24 +28,29 @@ const cartSlice = createSlice({
       } else {
         state.items.push({ ...newItem, quantity: newItem.quantity || 1 });
       }
+      localStorage.setItem("cart", JSON.stringify(state.items));
     },
     removeFromCart: (state, action: PayloadAction<string>) => {
       state.items = state.items.filter((item) => item.id !== action.payload);
+      localStorage.setItem("cart", JSON.stringify(state.items));
     },
     clearCart: (state) => {
       state.items = [];
+      localStorage.setItem("cart", JSON.stringify(state.items));
     },
     increaseItemQuantity: (state, action: PayloadAction<string>) => {
       const item = state.items.find((item) => item.id === action.payload);
       if (item) {
         item.quantity = (item.quantity || 0) + 1;
       }
+      localStorage.setItem("cart", JSON.stringify(state.items));
     },
     decreaseItemQuantity: (state, action: PayloadAction<string>) => {
       const item = state.items.find((item) => item.id === action.payload);
       if (item && item.quantity && item.quantity > 1) {
         item.quantity -= 1;
       }
+      localStorage.setItem("cart", JSON.stringify(state.items));
     },
   },
 });
