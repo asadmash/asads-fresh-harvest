@@ -70,9 +70,16 @@ export default function ProductCard({ product }: { product: Product }) {
               className=" hover:bg-[#ee623a] text-black hover:text-white font-semibold transition-all px-4 py-2 rounded-xl  block w-full text-center border-2 border-[#f4f6f6]"
               onClick={(e) => {
                 e.stopPropagation(); // prevent card onClick
-                isInCart
-                  ? dispatch(removeFromCart(product.id))
-                  : dispatch(addToCart(product));
+                if (!isAuthenticated) {
+                  dispatch(setRedirectAfterLogin(product.id));
+                  dispatch(openAuthModal(product.id));
+                  return;
+                }
+                if (isInCart) {
+                  dispatch(removeFromCart(product.id));
+                } else {
+                  dispatch(addToCart(product));
+                }
               }}
             >
               {isInCart ? "Remove from Cart" : "Add to Cart"}
