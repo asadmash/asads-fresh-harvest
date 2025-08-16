@@ -71,7 +71,7 @@ const Header = () => {
     <>
       <div
         className={`py-3 @container w-full fixed h-auto z-40 transition-all duration-300 ${
-          isScrolled ? "bg-[#749b3f]/60 backdrop-blur-sm" : "bg-transparent"
+          isScrolled ? "bg-[#fff]/60 backdrop-blur-sm" : "bg-transparent"
         } ${showHeader ? "top-0" : "-top-full"}`}
       >
         <div className="container_inner flex justify-between items-center">
@@ -93,7 +93,7 @@ const Header = () => {
               <Navbar />
             </div>
             <div>
-              <div className="flex items-center gap-5 text-white">
+              <div className="flex items-center gap-5 text-black">
                 <div className="relative hidden sm:block">
                   <FiHeart className="text-[14px] sm:text-3xl" />
                   <div className="bg-red-600 rounded-full absolute top-0 right-0 w-[18px] h-[18px] text-[12px] text-white grid place-items-center translate-x-1 -translate-y-1">
@@ -109,7 +109,7 @@ const Header = () => {
                 </div>
                 <div className="md:hidden">
                   <button onClick={toggleSidebar}>
-                    <GiHamburgerMenu className="text-white text-xl md:text-2xl" />
+                    <GiHamburgerMenu className="text-black text-xl md:text-2xl" />
                   </button>
                 </div>
               </div>
