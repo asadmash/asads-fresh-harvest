@@ -20,14 +20,14 @@ export default function HeaderAuthButton() {
           console.error("Error signing out:", err);
         }
       }}
-      className="px-2 py-2 bg-orange-500 text-white rounded hover:bg-orange-600 transition max-[400px]:hidden"
+      className="px-2 py-2 border-1 border-[#a6a6a6] hover:text-white rounded hover:bg-orange-600 transition max-[400px]:hidden"
     >
       Sign Out
     </button>
   ) : (
     <button
       onClick={() => dispatch(openAuthModal(null))} // open modal for login
-      className="px-2 py-2 bg-orange-500 text-white rounded hover:bg-orange-600 transition max-[400px]:hidden"
+      className="px-2 py-2 border-1 border-[#a6a6a6] hover:text-white rounded hover:bg-orange-600 transition max-[400px]:hidden"
     >
       Sign In
     </button>
