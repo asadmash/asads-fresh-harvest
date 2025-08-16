@@ -6,19 +6,28 @@ import Testimonial from "../components/ui/Testimonial";
 import Blog from "../components/ui/Blog";
 import AuthModalHandler from "@/components/partials/AuthModalHandler";
 import SProvider from "@/components/partials/SeasonProvider";
+import Footer from "@/components/ui/Footer";
 
 export default function Home() {
   return (
     <div>
       <main className="">
-        <Hero />
-        <SProvider>
-          <OurProducts />
-        </SProvider>
-        <About />
+        <div id="home">
+          <Hero />
+        </div>
+        <div id="shop">
+          <SProvider>
+            <OurProducts />
+          </SProvider>
+        </div>
+        <div id="about-us">
+          <About />
+        </div>
         <SeasonalOffer />
         <Testimonial />
-        <Blog />
+        <div id="blog">
+          <Blog />
+        </div>
         <AuthModalHandler />
       </main>
     </div>
