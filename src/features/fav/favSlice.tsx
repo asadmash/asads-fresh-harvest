@@ -3,10 +3,12 @@ import { Product } from '@/types/product';
 
 interface FavState {
   items: Product[];
+  isFavSidebarOpen: boolean;
 }
 
 const initialState: FavState = {
   items: [],
+  isFavSidebarOpen: false,
 };
 
 const favSlice = createSlice({
@@ -23,8 +25,14 @@ const favSlice = createSlice({
     clearFav: (state) => {
       state.items = [];
     },
+    openFavSidebar: (state) => {
+      state.isFavSidebarOpen = true;
+    },
+    closeFavSidebar: (state) => {
+      state.isFavSidebarOpen = false;
+    },
   },
 });
 
-export const { addToFav, removeFromFav, clearFav } = favSlice.actions;
+export const { addToFav, removeFromFav, clearFav, openFavSidebar, closeFavSidebar } = favSlice.actions;
 export default favSlice.reducer;
