@@ -24,19 +24,19 @@ export default function Footer() {
               <h3 className="text-sm sm:text-lg">Quick Links 1</h3>
               <ul className="text-[14px] sm:text-[16px]">
                 <li>
-                  <Link href={`/`}>Home</Link>
+                  <a href="#home">Home</a>
                 </li>
                 <li>
-                  <Link href={`/`}>Shop</Link>
+                  <a href="#shop">Shop</a>
                 </li>
                 <li>
-                  <Link href={`/`}>About us</Link>
+                  <a href="#about-us">About us</a>
                 </li>
                 <li>
-                  <Link href={`/`}>Blog</Link>
+                  <a href="#blog">Blog</a>
                 </li>
                 <li>
-                  <Link href={`/`}>Detail Blog</Link>
+                  <Link href={`#blog`}>Detail Blog</Link>
                 </li>
               </ul>
             </div>
