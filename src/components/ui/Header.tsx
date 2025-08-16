@@ -7,10 +7,12 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import Link from "next/link";
 import Navbar from "./Navbar";
 // to show cart count
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import CartSidebar from "../partials/CartSidebar";
+import FavSidebar from "../partials/FavSidebar";
 import HeaderAuthButton from "../partials/HeaderAuthBtn";
+import { openFavSidebar, closeFavSidebar } from "@/features/fav/favSlice";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -18,13 +20,16 @@ const Header = () => {
   const [lastScrollY, setLastScrollY] = useState(0);
   const [showHeader, setShowHeader] = useState(true);
   const [isCartOpen, setCartOpen] = useState(false);
+  const dispatch = useDispatch();
 
   // read the cart state
   const cartCount = useSelector((state: RootState) =>
     state.cart.items.reduce((total, item) => total + (item.quantity || 1), 0)
   );
   const favCount = useSelector((state: RootState) => state.fav.items.length);
-  // check if sidebar open or close
+  const isFavSidebarOpen = useSelector(
+    (state: RootState) => state.fav.isFavSidebarOpen
+  );
 
   const toggleSidebar = () => {
     setSidebarOpen(!isSidebarOpen);
@@ -36,6 +41,14 @@ const Header = () => {
   // close cart handler
   const closeCart = () => {
     setCartOpen(false);
+  };
+
+  const handleOpenFavSidebar = () => {
+    dispatch(openFavSidebar());
+  };
+
+  const handleCloseFavSidebar = () => {
+    dispatch(closeFavSidebar());
   };
 
   useEffect(() => {
@@ -62,12 +75,12 @@ const Header = () => {
   }, [lastScrollY]);
 
   useEffect(() => {
-    if (isSidebarOpen || isCartOpen) {
+    if (isSidebarOpen || isCartOpen || isFavSidebarOpen) {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "auto";
     }
-  }, [isSidebarOpen, isCartOpen]);
+  }, [isSidebarOpen, isCartOpen, isFavSidebarOpen]);
 
   return (
     <>
@@ -96,7 +109,10 @@ const Header = () => {
             </div>
             <div>
               <div className="flex items-center gap-5 text-black">
-                <div className="relative hidden sm:block">
+                <div
+                  className="relative hidden sm:block cursor-pointer"
+                  onClick={handleOpenFavSidebar}
+                >
                   <FiHeart className="text-[14px] sm:text-3xl" />
                   <div className="bg-red-600 rounded-full absolute top-0 right-0 w-[18px] h-[18px] text-[12px] text-white grid place-items-center translate-x-1 -translate-y-1">
                     {favCount}
@@ -168,6 +184,9 @@ const Header = () => {
 
       {/* Cart Sidebar */}
       {isCartOpen && <CartSidebar onClose={closeCart} />}
+
+      {/* Fav Sidebar */}
+      {isFavSidebarOpen && <FavSidebar onClose={handleCloseFavSidebar} />}
     </>
   );
 };
