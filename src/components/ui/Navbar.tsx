@@ -7,24 +7,24 @@ export default function Navbar() {
     <div>
       <ul className="flex gap-1 sm:gap-2 md:gap-4 font-normal text-[16px]">
         <li className="relative">
-          <Link href="/" className="nav_link">
+          <a href="#home" className="nav_link">
             Home
-          </Link>
+          </a>
         </li>
         <li className="relative">
-          <Link href="/" className="nav_link">
+          <a href="#shop" className="nav_link">
             Shop
-          </Link>
+          </a>
         </li>
         <li className="relative">
-          <Link href="/" className="nav_link">
+          <a href="#about-us" className="nav_link">
             About us
-          </Link>
+          </a>
         </li>
         <li className="relative">
-          <Link href="/" className="nav_link">
+          <a href="#blog" className="nav_link">
             Blog
-          </Link>
+          </a>
         </li>
       </ul>
     </div>
