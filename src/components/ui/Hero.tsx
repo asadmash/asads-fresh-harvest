@@ -1,7 +1,16 @@
+"use client";
+
 import Image from "next/image";
 import React from "react";
 
 export default function Hero() {
+  const handleShopNowClick = () => {
+    const productsSection = document.getElementById("new-products");
+    if (productsSection) {
+      productsSection.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <section className="h-auto w-full bg-[url(/mobile-hero-bg.png)] lg:bg-[url(/desktop-hero-bg.png)] @container bg-cover relative bg-right">
       <div className="container_inner z-30">
@@ -17,7 +26,10 @@ export default function Hero() {
             At Fresh Harvest, we are passionate about providing you with the
             freshest and most flavorful fruits and vegetables
           </p>
-          <button className="bg-orange mt-10 px-3 md:px-6 py-2 md:py-4 font-bold text-xl md:text-2xl text-white rounded-xl">
+          <button
+            onClick={handleShopNowClick}
+            className="bg-orange mt-10 px-3 md:px-6 py-2 md:py-4 font-bold text-xl md:text-2xl text-white rounded-xl transition-shadow duration-300 hover:shadow-lg"
+          >
             Shop Now
           </button>
         </div>
