@@ -21,8 +21,8 @@ export default function ProductDetailsSkeleton() {
             </div>
 
             <div className="fav-cart flex flex-col md:flex-row flex-wrap gap-4">
-              <div className="add-fav px-4 py-2 bg-gray-200 h-12 w-full lg:w-fit rounded-lg animate-pulse"></div>
-              <div className="add-cart px-4 py-2 bg-gray-200 h-12 w-full lg:w-fit rounded-lg animate-pulse"></div>
+              <div className="add-fav px-4 py-2 bg-gray-200 h-12 w-full rounded-lg animate-pulse"></div>
+              <div className="add-cart px-4 py-2 bg-gray-200 h-12 w-full rounded-lg animate-pulse"></div>
             </div>
           </div>
         </section>
