@@ -2,16 +2,21 @@
 
 import { useParams } from "next/navigation";
 import { useGetProductByIdQuery } from "@/features/api/productApi";
-
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { addToCart } from "@/features/cart/cartSlice";
 import Image from "next/image";
-import { FaShoppingCart } from "react-icons/fa";
-import { FaHeart } from "react-icons/fa";
+import { FaShoppingCart, FaHeart } from "react-icons/fa";
 import RelatedProducts from "@/components/ui/RelatedProducts";
 import SProvider from "@/components/partials/SeasonProvider";
 
 export default function ProductDetailsPage() {
   const params = useParams();
   const productId = params?.id;
+  const dispatch = useDispatch();
+
+  const [quantity, setQuantity] = useState(1);
+  const [isAdded, setIsAdded] = useState(false);
 
   const { data: response, isLoading } = useGetProductByIdQuery(
     productId as string,
@@ -20,6 +25,24 @@ export default function ProductDetailsPage() {
     }
   );
   const product = response?.data;
+
+  const increaseQuantity = () => {
+    setQuantity((prev) => prev + 1);
+  };
+
+  const decreaseQuantity = () => {
+    setQuantity((prev) => (prev > 1 ? prev - 1 : 1));
+  };
+
+  const handleAddToCart = () => {
+    if (product) {
+      dispatch(addToCart({ ...product, quantity }));
+      setIsAdded(true);
+      setTimeout(() => {
+        setIsAdded(false);
+      }, 2000);
+    }
+  };
 
   if (!productId) return <p>Invalid product</p>;
   if (isLoading) return <p>Loading product...</p>;
@@ -62,11 +85,17 @@ export default function ProductDetailsPage() {
             <div className="quantity flex gap-2 mt-20 mb-10 md:mt-10">
               <h3>Quantity</h3>
               <div className="box border border-[#a6a6a6] flex gap-2 w-[150px] justify-around items-center">
-                <span className="decrese border-r border-[#a6a6a6] flex-1/3 text-center">
+                <span
+                  className="decrese border-r border-[#a6a6a6] flex-1/3 text-center cursor-pointer"
+                  onClick={decreaseQuantity}
+                >
                   -
                 </span>
-                <strong className="flex-1/3 text-center">1</strong>
-                <span className="increase border-l border-[#a6a6a6] flex-1/3 text-center">
+                <strong className="flex-1/3 text-center">{quantity}</strong>
+                <span
+                  className="increase border-l border-[#a6a6a6] flex-1/3 text-center cursor-pointer"
+                  onClick={increaseQuantity}
+                >
                   +
                 </span>
               </div>
@@ -78,10 +107,15 @@ export default function ProductDetailsPage() {
                 <FaHeart className="text-[#d9d9d9]" />
                 <p className="text-[#4a4a52] font-semibold">Save as favorite</p>
               </button>
-              <button className="add-cart px-4 py-2 bg-[#ff6a19] hover:bg-[#d9d9d9] flex gap-2 justify-center items-center rounded-lg w-full lg:w-fit">
+              <button
+                className="add-cart px-4 py-2 bg-[#ff6a19] hover:bg-[#d9d9d9] flex gap-2 justify-center items-center rounded-lg w-full lg:w-fit disabled:opacity-50"
+                onClick={handleAddToCart}
+                disabled={isAdded}
+              >
                 <FaShoppingCart className="text-white" />
-
-                <p className="text-white font-semibold">Add to cart</p>
+                <p className="text-white font-semibold">
+                  {isAdded ? "Added to Cart" : "Add to Cart"}
+                </p>
               </button>
             </div>
           </div>

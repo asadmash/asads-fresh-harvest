@@ -20,7 +20,9 @@ const Header = () => {
   const [isCartOpen, setCartOpen] = useState(false);
 
   // read the cart state
-  const cartCount = useSelector((state: RootState) => state.cart.items.length);
+  const cartCount = useSelector((state: RootState) =>
+    state.cart.items.reduce((total, item) => total + (item.quantity || 1), 0)
+  );
   const favCount = useSelector((state: RootState) => state.fav.items.length);
   // check if sidebar open or close
 
@@ -89,7 +91,7 @@ const Header = () => {
             </Link>
           </div>
           <div className="flex items-center gap-2">
-            <div className="hidden md:block">
+            <div className="hidden md:block md:mr-12 lg:mr-20 xl:mr-24">
               <Navbar />
             </div>
             <div>

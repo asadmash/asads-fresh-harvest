@@ -5,7 +5,11 @@ import Image from "next/image";
 import { IoMdClose } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/store/store";
-import { removeFromCart } from "@/features/cart/cartSlice"; // adjust path as per your project
+import {
+  removeFromCart,
+  increaseItemQuantity,
+  decreaseItemQuantity,
+} from "@/features/cart/cartSlice";
 
 interface CartSidebarProps {
   onClose: () => void;
@@ -38,7 +42,10 @@ export default function CartSidebar({ onClose }: CartSidebarProps) {
     dispatch(removeFromCart(id));
   };
 
-  const cartTotal = cartItems.reduce((total, item) => total + item.price, 0);
+  const cartTotal = cartItems.reduce(
+    (total, item) => total + item.price * (item.quantity || 1),
+    0
+  );
 
   return (
     <div
@@ -75,7 +82,28 @@ export default function CartSidebar({ onClose }: CartSidebarProps) {
                   />
                   <div className="ml-4">
                     <h3 className="font-semibold">{item.productName}</h3>
-                    <p className="text-gray-600">${item.price.toFixed(2)}</p>
+                    <p className="text-gray-600">
+                      ${item.price.toFixed(2)} x {item.quantity || 1}
+                    </p>
+                    <div className="flex items-center gap-2 mt-2">
+                      <button
+                        onClick={() =>
+                          dispatch(decreaseItemQuantity(item.id))
+                        }
+                        className="px-2 py-1 bg-gray-200 rounded"
+                      >
+                        -
+                      </button>
+                      <span>{item.quantity || 1}</span>
+                      <button
+                        onClick={() =>
+                          dispatch(increaseItemQuantity(item.id))
+                        }
+                        className="px-2 py-1 bg-gray-200 rounded"
+                      >
+                        +
+                      </button>
+                    </div>
                   </div>
                 </div>
                 <button

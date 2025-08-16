@@ -10,4 +10,5 @@ export interface Product {
   isDeleted: boolean;
   createdAt: string;
   updatedAt: string;
+  quantity?: number;
 }
