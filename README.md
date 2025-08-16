@@ -3,6 +3,9 @@
 A **full-featured e-commerce frontend** built with **Next.js 15**, demonstrating modern **state management**, **backend API handling**, **authentication**, and **RTK Query** for data fetching. This project is production-ready and can be deployed on **Vercel** or **Cloudflare Pages**.  
 
 ---
+![Screenshot of Project](/public/screenshort.png)
+
+
 
 ## Features
 
