@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 
 import { useGetProductsQuery } from "@/features/api/productApi";
@@ -11,6 +11,9 @@ import ProductCardSkeleton from "@/components/ui/ProductCardSkeleton";
 export default function OurProducts() {
   const { data, isLoading, isError, error } = useGetProductsQuery();
   const products = data?.data || [];
+  const [showAllProducts, setShowAllProducts] = useState(false);
+
+  const displayedProducts = showAllProducts ? products : products.slice(0, 8);
 
   if (isLoading) {
     return (
@@ -52,7 +55,7 @@ export default function OurProducts() {
           </div>
         ) : (
           <div className="flex flex-wrap animate-fadeIn">
-            {products.map((product: Product) => {
+            {displayedProducts.map((product: Product) => {
               return (
                 <div
                   key={product.id}
@@ -64,14 +67,16 @@ export default function OurProducts() {
             })}
           </div>
         )}
-        <div className="text-center mt-4">
-          <Link
-            href="/products"
-            className="px-4 py-2 text-[#ff6a19]  rounded hover:bg-[#ff6a19] hover:text-white border-[#ff6a19] border-2 transition-all font-semibold tracking-wider text-lg"
-          >
-           See All Products
-          </Link>
-        </div>
+        {products.length > 8 && !showAllProducts && (
+          <div className="text-center mt-4">
+            <button
+              onClick={() => setShowAllProducts(true)}
+              className="px-4 py-2 text-[#ff6a19] rounded hover:bg-[#ff6a19] hover:text-white border-[#ff6a19] border-2 transition-all font-semibold tracking-wider text-lg"
+            >
+              See More Products
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
