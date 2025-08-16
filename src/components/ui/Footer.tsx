@@ -122,7 +122,6 @@ export default function Footer() {
                   width={40}
                   height={40}
                   alt="apple-logo"
-                 
                 />
                 <div>
                   <p className="text-[10px] sm:text-[14px]">Download on the</p>
@@ -131,7 +130,7 @@ export default function Footer() {
               </div>
               <div className="play-store flex p-2 bg-[#000] text-white rounded-2xl cursor-pointer w-fit">
                 <Image
-                  src={`brand-google-play.svg`}
+                  src={`/brand-google-play.svg`}
                   width={40}
                   height={40}
                   alt="play-logo"
